@@ -864,6 +864,7 @@ function toggleHouseImage() {
   try {
     if (door) { door.currentTime = 0; door.play().catch(()=>{}); }
   } catch(_) {}
+  localStorage.setItem("darkModeEnabled", document.body.classList.contains("dark-mode"));
 
   // SPRITES (supports BW in dark mode if present elsewhere)
   const isDark = body.classList.contains("dark-mode");
@@ -959,6 +960,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // card skeleton clears after first layout
   window.addEventListener('load', () => setTimeout(() => kill('card-skeleton'), 500));
 });
+</script>
+
+<script>
+// === Global Dark Mode Persistence ===
+
+// Apply saved dark mode preference on load
+document.addEventListener("DOMContentLoaded", () => {
+  const isDark = localStorage.getItem("darkModeEnabled") === "true";
+  if (isDark) document.body.classList.add("dark-mode");
+
+  // Update the house sprite if the function exists
+  if (typeof window.setHouseSpriteForMode === "function") {
+    window.setHouseSpriteForMode();
+  }
+});
+
+// Modify your toggle function to save the preference
+// (If you already have toggleHouseImage defined, just add the localStorage line inside it)
+function persistDarkModeState() {
+  localStorage.setItem(
+    "darkModeEnabled",
+    document.body.classList.contains("dark-mode")
+  );
+}
+// Example integration: if toggleHouseImage() handles the mode change,
+// call persistDarkModeState() at the end of that function.
 </script>
 
 </body>
