@@ -409,10 +409,487 @@ body.dark-mode .paper { background:#444; border-color:#666; }
   </div>
 
   <!-- p5 library -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js" defer></script>
+
+  <!-- FULL p5 sketch (unchanged from your stable version) -->
+  
+  <!-- FULL p5 sketch (theme-aware) -->
+  <script>
+  let gridTex;
+  let textLayer;
+  let sphereDetail = 50;
+  let autoRotate = 0;
+
+  // Moon texture for dark mode
+  let moonImg = null;
+  let moonReady = false;
+
+  // Smooth layout targets
+  let targetRadius = 0;
+  let targetSphereCX = 0;
+  let radius = 0;
+  let sphereCX = 0;
+
+  // Theme helpers
+  let lastDark = false;
+  function isDarkMode() {
+    return document.body.classList.contains('dark-mode');
+  }
   
 
+function getTheme() {
+  if (document.body.classList.contains('dark-mode')) {
+    return {
+      p5Bg: '#000000',
+      frameStroke: '#ffffff',
+      textOutline: [245,245,245],
+      textFill: 255,
+      glow: [[255,255,255],[230,230,230],[200,200,200]],
+      sphereOutline: '#ffffff'
+    };
+  } else {
+    return {
+      p5Bg: '#f7cfcf',
+      frameStroke: '#97717E',
+      textOutline: [151,113,126],
+      textFill: 255,
+      glow: [[173,216,230],[152,251,152],[255,182,193]],
+      sphereOutline: '#97717E'
+    };
+  }
+}
+
+  function preload() {
+    // Preload moon texture
+    try {
+      moonImg = loadImage('my_assets/MoonTexture.jpg', () => { moonReady = true; }, () => { moonReady = false; });
+    } catch(e) { moonReady = false; }
+  }
+
+  function setup() {
+    if (typeof pixelDensity === 'function') { try { pixelDensity(window.devicePixelRatio > 1 ? 1.5 : 1); } catch(e){} }
+const aspectRatio = 0.25;
+    const cnv = createCanvas(windowWidth, windowWidth * aspectRatio, WEBGL);
+    cnv.parent("p5-holder");
+    setAttributes('alpha', true);
+    noStroke();
+
+    // Grid texture for sphere
+    gridTex = createGraphics(384, 192);
+    gridTex.clear();
+    drawGridTexture(gridTex, isDarkMode());
+
+    // Text layer
+    textLayer = createGraphics(width, height);
+    textLayer.pixelDensity(1);
+    textLayer.clear();
+
+    computeLayoutTargets();
+    radius = targetRadius;
+    sphereCX = targetSphereCX;
+    updateTextLayer(radius, sphereCX);
+  }
+
+  function draw() {
+    const theme = getTheme();
+    background(theme.p5Bg);
+
+    // Re-render grid texture only when theme flips
+    const dark = isDarkMode();
+    if (dark !== lastDark) {
+      gridTex.clear();
+      drawGridTexture(gridTex, dark);
+      lastDark = dark;
+    }
+
+    push();
+    translate(-width / 2, 0, 0);
+
+    autoRotate += 0.003;
+    push();
+    translate(sphereCX, 0, 0);
+    const rotY = map(mouseX, 0, width, -PI, PI);
+    const rotX = map(mouseY, 0, height, -PI / 2, PI / 2);
+    rotateY(rotY + autoRotate);
+    rotateX(rotX * 0.5);
+    texture(dark && moonReady ? moonImg : gridTex);
+    sphere(radius, sphereDetail, sphereDetail);
+    pop();
+
+    updateTextLayer(radius, sphereCX);
+    image(textLayer, 0, -height / 2);
+    pop();
+
+    drawSphereOutline(radius);
+    drawFrameOutline();
+  }
+
+  // ---------------- Layout + Scaling ----------------
+
+  function computeLayoutTargets() {
+    const baseScale = constrain(width / 900, 0.4, 1);
+    let scaleFactor;
+    if (width < 600)      scaleFactor = 1.05;
+    else if (width < 1000) scaleFactor = 1.0;
+    else if (width < 1400) scaleFactor = 0.9;
+    else                   scaleFactor = 0.8;
+
+    targetRadius = width * 0.12 * baseScale * scaleFactor;
+    const offsetFactor = map(width, 320, 1400, 0.12, 0.17, true);
+    targetSphereCX = targetRadius * (1 + offsetFactor);
+  }
+
+  // ---------------- Drawing helpers ----------------
+
+  function drawSphereOutline(r) {
+    const outlineColor = getTheme().sphereOutline;
+    const cx = (width / 2) - (width / 2 - targetSphereCX);
+    const cy = height / 2;
+    const d = r * 2 * 1.06;
+    const scaleW = constrain(width / 900, 0.4, 1);
+
+    push();
+    resetMatrix();
+    translate(-width / 2, -height / 2);
+    noFill();
+    for (let i = 3; i >= 1; i--) {
+      const w = (1 + i * 1.4) * scaleW;
+      const a = 12 + i * 4;
+      stroke(
+        redFromHex(outlineColor),
+        greenFromHex(outlineColor),
+        blueFromHex(outlineColor),
+        a
+      );
+      strokeWeight(w);
+      ellipse(cx, cy, d + i * 2, d + i * 2);
+    }
+    stroke(outlineColor);
+    strokeWeight(2.4 * scaleW);
+    ellipse(cx, cy, d, d);
+    pop();
+  }
+
+  function drawFrameOutline() {
+    const theme = getTheme();
+    push();
+    resetMatrix();
+    translate(-width / 2, -height / 2, 0);
+    noFill();
+    stroke(theme.frameStroke);
+    strokeWeight(2);
+    rect(0.5, 0.5, width - 3, height - 3);
+    pop();
+  }
+
+  // ---------------- Color + Text ----------------
+  function redFromHex(hex){ return parseInt(hex.slice(1,3), 16); }
+  function greenFromHex(hex){ return parseInt(hex.slice(3,5), 16); }
+  function blueFromHex(hex){ return parseInt(hex.slice(5,7), 16); }
+
+function updateTextLayer(r = 0, sCX = 0) {
+  const theme = getTheme();
+
+  // Resize backing buffer if needed
+  if (textLayer.width !== width || textLayer.height !== height) {
+    textLayer.resizeCanvas(width, height);
+  }
+  textLayer.clear();
+  textLayer.pixelDensity(1);              // avoids DPI-thick strokes on mobile
+
+  const pastelColors = theme.glow;
+  textLayer.textAlign(textLayer.LEFT, textLayer.CENTER);
+  textLayer.textFont('IBM Plex Sans, monospace');
+
+  const baseText = "wen Denver Emerson";
+
+  // --- sizing the text ---
+  const availableW = width - (sCX + r * 1.3);
+  let fontSize = height * 1.0;            // your current starting point
+  textLayer.textSize(fontSize);
+
+  // Fit to available width (your current logic)
+  let textW = textLayer.textWidth(baseText);
+  if (textW > availableW) {
+    fontSize *= (availableW / textW) * 0.95;
+    textLayer.textSize(fontSize);
+  }
+
+  // ---------------------------
+  // PROPORTIONAL STROKE WEIGHTS
+  // ---------------------------
+  // Scale stroke weights from font size, with sensible clamps
+  const swGlow  = constrain(fontSize * 0.035, 0.7, 3.0);  // colored/white “halo” passes
+  const swEdge  = constrain(fontSize * 0.070, 1.5, 6.0);  // main outline
+  const swInner = constrain(fontSize * 0.020, 0.5, 2.4);  // optional inner sharpening
+
+  // If you prefer even crisper edges on tiny screens, uncomment the next line:
+  // const dpr = (window.devicePixelRatio || 1); const dprScale = Math.sqrt(dpr); swGlow/=dprScale; swEdge/=dprScale; swInner/=dprScale;
+
+  const textStartX = sCX + r * 1.05;
+  const baselineY  = height / 2;
+
+  // Optional: crisper joins/caps for a “screen-printed” look
+  textLayer.strokeJoin(textLayer.MITER);
+  textLayer.strokeCap(textLayer.PROJECT);
+
+  // --- iridescent/white halo passes (kept flat in dark mode) ---
+  pastelColors.forEach((rgb, idx) => {
+    textLayer.stroke(rgb[0], rgb[1], rgb[2], 220);
+    textLayer.strokeWeight(swGlow);
+    textLayer.noFill();
+    textLayer.text(baseText, textStartX + idx * 0.6, baselineY + idx * 0.4);
+  });
+
+  // --- main outline ---
+  textLayer.stroke(theme.textOutline[0], theme.textOutline[1], theme.textOutline[2]);
+  textLayer.strokeWeight(swEdge);
+  textLayer.noFill();
+  textLayer.text(baseText, textStartX, baselineY);
+
+  // (Optional) tiny inner pass to sharpen letterforms on small sizes
+  // Comment out if you prefer the thicker single-outline look.
+  // textLayer.stroke(theme.textFill);
+  // textLayer.strokeWeight(swInner);
+  // textLayer.noFill();
+  // textLayer.text(baseText, textStartX, baselineY);
+
+  // --- fill ---
+  textLayer.noStroke();
+  textLayer.fill(theme.textFill);
+  textLayer.text(baseText, textStartX, baselineY);
+}
 
 
+  // ---------------- Grid texture ----------------
+  function drawGridTexture(pg, dark=false) {
+    if (dark) {
+      pg.background(40);
+      pg.stroke(190);
+      pg.strokeWeight(1.5);
+      for (let i = 0; i <= pg.width; i += pg.width / 12) {
+        pg.stroke(190);
+        pg.line(i, 0, i, pg.height);
+      }
+      for (let j = 0; j <= pg.height; j += pg.height / 6) {
+        pg.stroke(120);
+        pg.line(0, j, pg.width, j);
+      }
+      pg.stroke(190);
+    } else {
+      pg.background(255);
+      pg.stroke('#c8b1b9');
+      pg.strokeWeight(1.5);
+      const colors = [ color(255,182,193), color(173,216,230), color(152,251,152) ];
+      for (let i = 0; i <= pg.width; i += pg.width / 12) {
+        const c = colors[int((i / (pg.width / 12)) % 3)];
+        pg.stroke(c);
+        pg.line(i, 0, i, pg.height);
+      }
+      for (let j = 0; j <= pg.height; j += pg.height / 6) {
+        const c = colors[int((j / (pg.height / 6)) % 3)];
+        pg.stroke(c);
+        pg.line(0, j, pg.width, j);
+      }
+      pg.stroke('#c8b1b9');
+    }
+  }
+
+  // ---------------- Resize ----------------
+  function windowResized() {
+    const aspectRatio = 0.25;
+    resizeCanvas(windowWidth, windowWidth * aspectRatio);
+    computeLayoutTargets();
+    updateTextLayer(targetRadius, targetSphereCX);
+    // force refresh of grid when size changes
+    gridTex.clear();
+    drawGridTexture(gridTex, isDarkMode());
+  }
+  </script>
+
+
+  <!-- card stack animation -->
+  <script>
+  const stack = document.querySelector('.card-stack');
+  let intervalTime = 4000;
+  let lastTime = 0;
+
+function cycleCards() {
+  const cards = stack.querySelectorAll('.card');
+  if (cards.length <= 1) return;
+  const top = cards[0];
+  const second = cards[1];
+
+  // animate top card offscreen
+  top.style.transform = 'translateX(110%) rotate(0deg)';
+  top.style.opacity = '0';
+
+  // bring next card to front
+  second.style.transform = 'translateY(0) scale(1)';
+  second.style.zIndex = cards.length;
+
+  // re-stack the rest visually
+  for (let i = 2; i < cards.length; i++) {
+    const y = 8 * (i - 1);
+    const scale = 1 - 0.03 * (i - 1);
+    cards[i].style.transform = `translateY(${y}px) scale(${scale})`;
+    cards[i].style.zIndex = cards.length - i;
+  }
+
+  setTimeout(() => {
+    // Move top card to end and hide it behind others
+    top.style.transition = 'none';
+    const y = 8 * (cards.length - 1);
+    const scale = 1 - 0.03 * (cards.length - 1);
+    top.style.transform = `translateY(${y}px) scale(${scale})`;
+    top.style.opacity = '0';             // keep hidden initially
+    top.style.zIndex = 1;                // send to bottom
+    stack.appendChild(top);
+
+    // Force reflow and restore transition for future cycles
+    void top.offsetWidth;
+    top.style.transition = 'transform 0.6s ease, opacity 0.6s ease';
+
+    // Fade it back in after re-insert (looks seamless)
+    requestAnimationFrame(() => { top.style.opacity = '1'; });
+  }, 600);
+}
+
+
+  function animationLoop(timestamp) {
+    if (timestamp - lastTime >= intervalTime) {
+      cycleCards();
+      lastTime = timestamp;
+    }
+    requestAnimationFrame(animationLoop);
+  }
+  requestAnimationFrame(animationLoop);
+
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock('portrait').catch(() => {});
+  }
+  </script>
+ 
+
+
+
+
+
+
+
+<script id="setCricketsVolumeOnLoad">
+document.addEventListener('DOMContentLoaded', () => {
+  const a = document.getElementById('cricketsAudio');
+  if (a) a.volume = 0.35; // softer default volume
+});
+</script>
+
+
+<script>
+(function(){
+  const SPRITES = {
+    light: { normal: "my_assets/Drawing (1).png", click: "my_assets/Drawing (2).png" },
+    dark:  { normal: "my_assets/Drawing (1)BW.png", click: "my_assets/Drawing (2)BW.png" }
+  };
+
+  function setHouseSpriteForMode() {
+    const house = document.getElementById("houseButton");
+    if (!house) return;
+    const isDark = document.body.classList.contains("dark-mode");
+    house.src = isDark ? SPRITES.dark.normal : SPRITES.light.normal;
+  }
+
+  window.toggleHouseImage = function toggleHouseImage() {
+    const house = document.getElementById("houseButton");
+    const audio = document.getElementById("cricketsAudio");
+    const isDark = document.body.classList.contains("dark-mode");
+
+    // Show press animation sprite based on current mode
+    house.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
+
+    // After 1s, toggle mode, then set resting sprite based on NEW mode
+    setTimeout(() => {
+      const nowDark = document.body.classList.toggle("dark-mode");
+
+      // handle audio playback
+      if (audio) {
+        try {
+          if (nowDark) {
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        } catch(e){}
+      }
+
+      // set sprite for the resulting mode
+      house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
+    }, 1000);
+  };
+
+  document.addEventListener("DOMContentLoaded", setHouseSpriteForMode);
+})();
+</script>
+
+
+<script id="preloadHouseSprites">
+document.addEventListener('DOMContentLoaded', () => {
+  const sources = [
+    "my_assets/Drawing (1).png",
+    "my_assets/Drawing (2).png",
+    "my_assets/Drawing (1)BW.png",
+    "my_assets/Drawing (2)BW.png"
+  ];
+  sources.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+});
+</script>
+
+
+
+
+
+<script id="toggleHouseHandler">
+function toggleHouseImage() {
+  const house = document.getElementById("houseButton");
+  const body  = document.body;
+  const door  = document.getElementById("doorbellSfx");
+  const audio = document.getElementById("cricketsAudio");
+
+  // Play doorbell immediately on user gesture (do not await).
+  try {
+    if (door) { door.currentTime = 0; door.play().catch(()=>{}); }
+  } catch(_) {}
+
+  // SPRITES (supports BW in dark mode if present elsewhere)
+  const isDark = body.classList.contains("dark-mode");
+  const SPRITES = {
+    light: { normal: "my_assets/Drawing (1).png",   click: "my_assets/Drawing (2).png" },
+    dark:  { normal: "my_assets/Drawing (1)BW.png", click: "my_assets/Drawing (2)BW.png" }
+  };
+
+  if (house) house.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
+
+  setTimeout(() => {
+    const nowDark = body.classList.toggle("dark-mode");
+
+    // set resting sprite based on new mode
+    if (house) house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
+
+    // crickets
+    if (audio) {
+      try {
+        if (nowDark) { audio.currentTime = 0; audio.play(); }
+        else { audio.pause(); audio.currentTime = 0; }
+      } catch(_) {}
+    }
+  }, 1000);
+}
+</script>
 
 
 <script id="tabClickSfx">
@@ -485,6 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+<!-- Injected: unified dark mode with persistence (non-destructive) -->
 <script>
 // === Unified Dark Mode Persistence & Toggle System ===
 
@@ -509,29 +987,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.setHouseSpriteForMode = setHouseSpriteForMode;
 
+  // Our version will override earlier definitions because it's declared later.
   window.toggleHouseImage = function toggleHouseImage() {
     const house = document.getElementById("houseButton");
     const crickets = document.getElementById("cricketsAudio");
     const doorbell = document.getElementById("doorbellSfx");
     const isDark = document.body.classList.contains("dark-mode");
 
-    if (doorbell) {
-      try { doorbell.currentTime = 0; doorbell.play(); } catch(e){}
-    }
+    // Play doorbell immediately on click
+    if (doorbell) { try { doorbell.currentTime = 0; doorbell.play(); } catch(e){} }
 
-    house.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
+    // Press sprite
+    if (house) house.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
 
     setTimeout(() => {
       const nowDark = document.body.classList.toggle("dark-mode");
+
+      // Ambient audio
       if (crickets) {
-        try {
-          if (nowDark) { crickets.currentTime = 0; crickets.play(); }
-          else { crickets.pause(); crickets.currentTime = 0; }
-        } catch(e){}
+        try { if (nowDark) { crickets.currentTime = 0; crickets.play(); } else { crickets.pause(); crickets.currentTime = 0; } } catch(e){}
       }
-      // Persist dark mode
+
+      // Persist choice
       localStorage.setItem("darkModeEnabled", document.body.classList.contains("dark-mode"));
-      house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
+
+      // Resting sprite for the resulting mode
+      if (house) house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
     }, 1000);
   };
 
