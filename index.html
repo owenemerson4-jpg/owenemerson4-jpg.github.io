@@ -962,15 +962,20 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-<!-- Injected: unified dark mode with persistence (non-destructive) -->
+<!-- Injected: persistent dark mode + crickets playback -->
 <script>
-// === Unified Dark Mode Persistence & Toggle System ===
+// === Unified Dark Mode + Crickets Persistence System ===
 
-// Apply saved dark mode preference on load
+// Apply saved state on load
 document.addEventListener("DOMContentLoaded", () => {
   const isDark = localStorage.getItem("darkModeEnabled") === "true";
+  const cricketsShouldPlay = localStorage.getItem("cricketsPlaying") === "true";
   if (isDark) document.body.classList.add("dark-mode");
   if (typeof window.setHouseSpriteForMode === "function") window.setHouseSpriteForMode();
+  const crickets = document.getElementById("cricketsAudio");
+  if (crickets && cricketsShouldPlay) {
+    try { crickets.volume = 0.35; crickets.play(); } catch(e){}
+  }
 });
 
 (function(){
@@ -987,31 +992,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.setHouseSpriteForMode = setHouseSpriteForMode;
 
-  // Our version will override earlier definitions because it's declared later.
   window.toggleHouseImage = function toggleHouseImage() {
     const house = document.getElementById("houseButton");
     const crickets = document.getElementById("cricketsAudio");
     const doorbell = document.getElementById("doorbellSfx");
     const isDark = document.body.classList.contains("dark-mode");
 
-    // Play doorbell immediately on click
     if (doorbell) { try { doorbell.currentTime = 0; doorbell.play(); } catch(e){} }
 
-    // Press sprite
     if (house) house.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
 
     setTimeout(() => {
       const nowDark = document.body.classList.toggle("dark-mode");
-
-      // Ambient audio
       if (crickets) {
-        try { if (nowDark) { crickets.currentTime = 0; crickets.play(); } else { crickets.pause(); crickets.currentTime = 0; } } catch(e){}
+        try {
+          if (nowDark) { crickets.currentTime = 0; crickets.play(); }
+          else { crickets.pause(); crickets.currentTime = 0; }
+        } catch(e){}
       }
-
-      // Persist choice
+      // Persist both dark mode and crickets playback state
       localStorage.setItem("darkModeEnabled", document.body.classList.contains("dark-mode"));
+      localStorage.setItem("cricketsPlaying", nowDark ? "true" : "false");
 
-      // Resting sprite for the resulting mode
       if (house) house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
     }, 1000);
   };
