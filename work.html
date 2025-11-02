@@ -14,6 +14,7 @@
     font-family: 'IBM Plex Sans', 'Inter', system-ui, Arial, sans-serif;
     overflow: hidden;
     background: linear-gradient(to bottom, #bfe5ff 0%, #eaf7ff 80%);
+    transition: background 0.4s ease, color 0.4s ease;
   }
 
   .cloud { position:absolute; height:16px; background:rgba(255,255,255,0.9); z-index:1; animation:float 40s linear infinite; }
@@ -160,6 +161,12 @@
   </div>
 
   <script>
+  // ✅ Load persisted dark mode on startup
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = localStorage.getItem("darkModeEnabled") === "true";
+    if (isDark) document.body.classList.add("dark-mode");
+  });
+
   document.addEventListener('DOMContentLoaded', () => {
     const a = document.getElementById('cricketsAudio');
     if (a) a.volume = 0.35;
@@ -176,13 +183,14 @@
       const isDark = document.body.classList.contains("dark-mode");
       house.src = isDark ? SPRITES.dark.normal : SPRITES.light.normal;
     }
+    window.setHouseSpriteForMode = setHouseSpriteForMode;
+
     window.toggleHouseImage = function toggleHouseImage() {
       const house = document.getElementById("houseButton");
       const audio = document.getElementById("cricketsAudio");
       const doorbell = document.getElementById("doorbellSfx");
       const isDark = document.body.classList.contains("dark-mode");
 
-      // Play doorbell sound when clicked
       if (doorbell) {
         try { doorbell.currentTime = 0; doorbell.play(); } catch(e){}
       }
@@ -197,6 +205,8 @@
             else { audio.pause(); audio.currentTime = 0; }
           } catch(e){}
         }
+        // Persist dark mode setting
+        localStorage.setItem("darkModeEnabled", document.body.classList.contains("dark-mode"));
         house.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
       }, 1000);
     };
