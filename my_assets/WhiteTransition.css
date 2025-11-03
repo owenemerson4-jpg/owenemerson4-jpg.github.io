@@ -1,0 +1,15 @@
+/* White transition overlay */
+#white-transition {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-auto-rows: 60px;
+}
+.white-block {
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0s;
+}
