@@ -21,6 +21,7 @@
     transition: background 0.4s ease, color 0.4s ease;
   }
 
+  /* Layers */
   .folder-back {
     position:absolute; bottom:0; left:0; width:100%; height:86%;
     background:linear-gradient(to bottom,#e9d79a 0%,#e2c97f 100%);
@@ -39,6 +40,7 @@
     padding:4%;
   }
 
+  /* Tabs */
   .tabs { position:absolute; top:6%; left:0; width:100%; display:flex; gap:1%; padding-left:2%; align-items:flex-end; z-index:5; }
   .tab {
     flex:0 0 18%; height:8vh; display:flex; align-items:center; justify-content:center;
@@ -51,6 +53,7 @@
   .tab.pink  { background:#f7cfcf; color:#5a3131; }
   .tab:hover { transform:translateY(-2px); text-decoration: underline; }
 
+  /* Grid of buttons */
   .nav-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -68,6 +71,7 @@
   }
   .nav-box:hover{ transform:translateY(-3px); background:#b9e3ae; }
 
+  /* House (dark-mode toggle) */
   .house-image {
     position:absolute;
     right:6%;
@@ -79,6 +83,7 @@
   }
   .house-image:active { transform:scale(0.96); }
 
+  /* Responsive */
   @media (max-width:900px){
     .nav-grid{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,1fr); }
   }
@@ -86,6 +91,7 @@
     .house-image { right:4%; height:10vh; bottom: calc(100% - var(--folder-back-top, 12.6vh)); }
   }
 
+  /* Dark mode palette */
   body.dark-mode {
     background:linear-gradient(to bottom,#0d0d0d 0%, #1a1a1a 80%);
     color:#f5f5f5;
@@ -104,28 +110,38 @@
 </style>
 </head>
 <body>
+  <!-- Layers -->
   <div class="folder-back"></div>
   <div class="paper"></div>
 
+  <!-- Tabs -->
   <div class="tabs">
     <a href="index.html" class="tab manila">About</a>
     <a href="work.html" class="tab green">Work</a>
     <a href="contact.html" class="tab pink">Contact</a>
   </div>
 
+  <!-- House toggle + audio -->
   <img src="my_assets/Drawing (1).png" alt="House" class="house-image" id="houseButton" onclick="toggleHouseImage()" />
   <audio id="cricketsAudio" src="my_assets/classiccrickets.wav" loop></audio>
   <audio id="doorbellSfx" src="my_assets/doorbell.mp3" preload="auto"></audio>
+  <audio id="clickSfx" src="my_assets/click.mp3" preload="auto"></audio>
   <audio id="pageTurnSfx" src="my_assets/pageturn.mp3" preload="auto"></audio>
 
+  <!-- Grid -->
   <div class="folder-front">
     <div class="nav-grid">
-      <a href="ShortStories.html" class="nav-box">Short Stories</a>
-      <a href="Music.html" class="nav-box">Music</a>
-      <a href="Photography.html" class="nav-box">Photography</a>
-      <a href="AnimationsDigitalArt.html" class="nav-box" data-transition>Animations/Digital Art</a>
-      <a href="GraphicDesign.html" class="nav-box" data-transition>Graphic Design</a>
-      <a href="ADigitalEpiphany.html" class="nav-box" data-transition>A Digital Epiphany</a>
+      <!-- click.mp3 only -->
+      <a href="ShortStories.html" class="nav-box" data-sound="click">Short Stories</a>
+      <a href="Music.html" class="nav-box" data-sound="click">Music</a>
+      <a href="Photography.html" class="nav-box" data-sound="click">Photography</a>
+
+      <!-- pageturn.mp3 + black transition -->
+      <a href="AnimationsDigitalArt.html" class="nav-box" data-transition data-sound="pageturn">Animations/Digital Art</a>
+      <a href="GraphicDesign.html" class="nav-box" data-transition data-sound="pageturn">Graphic Design</a>
+      <a href="ADigitalEpiphany.html" class="nav-box" data-transition data-sound="pageturn">A Digital Epiphany</a>
+
+      <!-- normal placeholders -->
       <a href="VirtualOrganology.html" class="nav-box">Virtual Organology of the American Southeast (coming soon)</a>
       <a href="Blog.html" class="nav-box">Blog (coming soon)</a>
     </div>
@@ -171,37 +187,41 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.addEventListener("DOMContentLoaded", setHouseSpriteForMode);
 })();
 
-/* ---- page-turn + selective transition wiring ---- */
+/* ---- click vs page-turn + transition wiring ---- */
 document.addEventListener("DOMContentLoaded",()=>{
-  const pageTurn=document.getElementById("pageTurnSfx");
+  const clickSfx = document.getElementById("clickSfx");
+  const pageTurn = document.getElementById("pageTurnSfx");
+
   document.querySelectorAll(".nav-box").forEach(box=>{
     box.addEventListener("click",(e)=>{
       const href = box.getAttribute("href");
-      e.preventDefault();
       if(!href) return;
+      e.preventDefault();
+
+      const soundType = box.dataset.sound; // "click" | "pageturn" | undefined
+      const audio = soundType==="pageturn" ? pageTurn : clickSfx;
+
+      const afterDelay = soundType==="pageturn" ? 900 : 250;
+      const go = ()=>{ window.location.href = href; };
+
+      // helper to play requested sound then callback
+      const playThen = (cb)=>{
+        try{
+          if(!audio){ cb(); return; }
+          audio.currentTime = 0;
+          const p = audio.play();
+          if(p && typeof p.then==="function"){
+            p.then(()=>setTimeout(cb, afterDelay)).catch(()=>cb());
+          } else { setTimeout(cb, afterDelay); }
+        }catch(_){ cb(); }
+      };
 
       if(box.hasAttribute("data-transition")){
-        // play page-turn then trigger black wipe via custom event the transition.js listens for
-        try{
-          pageTurn.currentTime=0;
-          const playPromise = pageTurn.play();
-          const trigger = ()=>{ document.body.dispatchEvent(new CustomEvent('startTransition',{detail:{href}})); };
-          if(playPromise && typeof playPromise.then==="function"){
-            playPromise.then(()=>setTimeout(trigger,500)).catch(()=>trigger());
-          } else { setTimeout(trigger,500); }
-        }catch(err){ document.body.dispatchEvent(new CustomEvent('startTransition',{detail:{href}})); }
+        // pageturn + black wipe
+        playThen(()=>{ document.body.dispatchEvent(new CustomEvent('startTransition',{detail:{href}})); });
       } else {
-        // normal page-turn then navigate without wipe
-        try{
-          pageTurn.currentTime=0;
-          const go = ()=>{ if(href) window.location.href = href; };
-          const p = pageTurn.play();
-          if(p && typeof p.then==="function"){
-            p.then(()=>setTimeout(go,900)).catch(()=>setTimeout(go,700));
-          } else {
-            setTimeout(go,900);
-          }
-        }catch(err){ if(href) window.location.href = href; }
+        // simple click sound + normal navigation
+        playThen(go);
       }
     });
   });
