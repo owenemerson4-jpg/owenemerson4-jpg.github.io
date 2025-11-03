@@ -7,38 +7,102 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; width: 100%; font-family: 'IBM Plex Sans', system-ui, sans-serif; overflow: hidden; background: linear-gradient(to bottom,#bfe5ff 0%,#eaf7ff 80%); transition: background 0.4s ease, color 0.4s ease; }
+  html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to bottom,#bfe5ff 0%,#eaf7ff 80%);
+    transition: background 0.4s ease, color 0.4s ease;
+  }
 
-  .folder-back { position:absolute; bottom:0; left:0; width:100%; height:86%; background:linear-gradient(to bottom,#e9d79a 0%,#e2c97f 100%); z-index:2; border-top:2px solid rgba(0,0,0,0.12); }
-  .paper { position:absolute; top:15%; left:0; width:100%; height:5%; background:#fff; z-index:3; border-top:1px solid rgba(0,0,0,0.1); border-bottom:1px solid rgba(0,0,0,0.1); }
-  .folder-front { position:absolute; bottom:0; left:0; width:100%; top:20%; background:linear-gradient(to bottom,#f5e0a1 0%,#f2d58b 100%); z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4%; }
+  .folder-back {
+    position:absolute; bottom:0; left:0; width:100%; height:86%;
+    background:linear-gradient(to bottom,#e9d79a 0%,#e2c97f 100%);
+    z-index:2; border-top:2px solid rgba(0,0,0,0.12);
+    --folder-back-top: 13.5vh;
+  }
+  .paper {
+    position:absolute; top:15%; left:0; width:100%; height:5%;
+    background:#fff; z-index:3; border-top:1px solid rgba(0,0,0,0.1);
+    border-bottom:1px solid rgba(0,0,0,0.1);
+  }
+  .folder-front {
+    position:absolute; bottom:0; left:0; width:100%; top:20%;
+    background:linear-gradient(to bottom,#f5e0a1 0%,#f2d58b 100%);
+    z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:4%;
+  }
 
   .tabs { position:absolute; top:6%; left:0; width:100%; display:flex; gap:1%; padding-left:2%; align-items:flex-end; z-index:5; }
-  .tab { flex:0 0 18%; height:8vh; display:flex; align-items:center; justify-content:center; border:2px solid rgba(0,0,0,0.18); font-weight:700; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; border-radius:0; transition:background 0.25s ease, transform 0.15s ease; }
-  .tab button { all:unset; width:100%; height:100%; text-align:center; cursor:pointer; }
-  .tab.manila { background:#f7e9b8; color:#3a2f09; }
+  .tab {
+    flex:0 0 18%; height:8vh; display:flex; align-items:center; justify-content:center;
+    border:2px solid rgba(0,0,0,0.18); font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    cursor:pointer; border-radius:0; transition:background 0.25s ease, transform 0.15s ease;
+    text-decoration:none;
+  }
+  .tab.manila{ background:#f7e9b8; color:#3a2f09; }
   .tab.green { background:#cfeec7; color:#1f4d2b; border:2px solid #aac3a3; }
-  .tab.pink { background:#f7cfcf; color:#5a3131; }
+  .tab.pink  { background:#f7cfcf; color:#5a3131; }
   .tab:hover { transform:translateY(-2px); }
 
-  .short-stories-grid { display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(2, 1fr); gap:2%; width:100%; height:100%; }
-  @media (max-width:900px){ .short-stories-grid{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(3,1fr);} }
-
-  .nav-box { background:#cfeec7; color:#1f4d2b; border:2px solid #aac3a3; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:1.1rem; text-align:center; letter-spacing:0.03em; transition:transform 0.15s ease, background 0.25s ease; cursor:pointer; text-decoration:none; }
+  .short-stories-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    gap:2%;
+    width:100%;
+    height:100%;
+  }
+  .nav-box {
+    background:#cfeec7; color:#1f4d2b; border:2px solid #aac3a3;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:600; font-size:1.1rem; text-align:center; letter-spacing:0.03em;
+    transition:transform 0.15s ease, background 0.25s ease;
+    cursor:pointer; text-decoration:none;
+  }
   .nav-box:hover { transform:translateY(-3px); background:#b9e3ae; }
 
-  .house-image { position:absolute; right:6%; bottom:calc(100% - 14vh); height:15vh; z-index:9; cursor:pointer; }
-  .house-image:active{ transform:scale(0.96); }
+  .house-image {
+    position:absolute;
+    right:6%;
+    bottom: calc(100% - var(--folder-back-top, 14vh));
+    height:15vh;
+    z-index:9;
+    cursor:pointer;
+    pointer-events:auto;
+  }
+  .house-image:active { transform:scale(0.96); }
 
-  body.dark-mode { background:linear-gradient(to bottom,#0d0d0d 0%,#1a1a1a 80%); color:#f5f5f5; }
-  body.dark-mode .folder-back { background:linear-gradient(to bottom,#222,#111); }
-  body.dark-mode .folder-front { background:linear-gradient(to bottom,#333,#1f1f1f); }
-  body.dark-mode .nav-box { background:#1c1c1c; color:#ddd; border:1px solid #555; }
+  @media (max-width:900px){
+    .short-stories-grid { grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(3,1fr); }
+  }
+  @media (max-width:768px){
+    .house-image { right:4%; height:10vh; bottom: calc(100% - var(--folder-back-top, 12.6vh)); }
+  }
+
+  body.dark-mode {
+    background:linear-gradient(to bottom,#0d0d0d 0%, #1a1a1a 80%);
+    color:#f5f5f5;
+  }
+  body.dark-mode .folder-back {
+    background:linear-gradient(to bottom,#222,#111);
+    border-top:2px solid rgba(255,255,255,0.1);
+  }
+  body.dark-mode .folder-front {
+    background:linear-gradient(to bottom,#333,#1f1f1f);
+  }
+  body.dark-mode .paper { background:#444; border-top:1px solid #666; border-bottom:1px solid #666; }
+  body.dark-mode .tab.manila { background:#2a2a2a; color:#eee; }
+  body.dark-mode .tab.green  { background:#1c1c1c; color:#ddd; border-color:#444; }
+  body.dark-mode .tab.pink   { background:#202020; color:#ccc; }
+  body.dark-mode .nav-box    { background:#1c1c1c; color:#ddd; border:1px solid #555; }
 </style>
 </head>
 <body>
   <div class="folder-back"></div>
   <div class="paper"></div>
+
   <div class="tabs">
     <a href="index.html" class="tab manila">About</a>
     <a href="work.html" class="tab green">Work</a>
@@ -64,38 +128,61 @@
 <script>
 // === Persistent Dark Mode + Crickets Playback ===
 document.addEventListener("DOMContentLoaded",()=>{
-  const isDark=localStorage.getItem("darkModeEnabled")==="true";
-  const cricketsShouldPlay=localStorage.getItem("cricketsPlaying")==="true";
-  if(isDark)document.body.classList.add("dark-mode");
-  const crickets=document.getElementById("cricketsAudio");
-  if(crickets&&cricketsShouldPlay){try{crickets.volume=0.35;crickets.play();}catch(e){}}
+  const isDark = localStorage.getItem("darkModeEnabled")==="true";
+  const cricketsShouldPlay = localStorage.getItem("cricketsPlaying")==="true";
+  if(isDark) document.body.classList.add("dark-mode");
+  const crickets = document.getElementById("cricketsAudio");
+  if(crickets && cricketsShouldPlay){ try{ crickets.volume = 0.35; crickets.play(); }catch(e){} }
 });
 
 (function(){
- const SPRITES={light:{normal:"my_assets/Drawing (1).png",click:"my_assets/Drawing (2).png"},dark:{normal:"my_assets/Drawing (1)BW.png",click:"my_assets/Drawing (2)BW.png"}};
- function setHouseSpriteForMode(){const h=document.getElementById("houseButton");if(!h)return;const d=document.body.classList.contains("dark-mode");h.src=d?SPRITES.dark.normal:SPRITES.light.normal;}
- window.setHouseSpriteForMode=setHouseSpriteForMode;
- window.toggleHouseImage=function(){const h=document.getElementById("houseButton"),c=document.getElementById("cricketsAudio"),d=document.getElementById("doorbellSfx"),isDark=document.body.classList.contains("dark-mode");if(d){try{d.currentTime=0;d.play();}catch(e){}}if(h)h.src=isDark?SPRITES.dark.click:SPRITES.light.click;setTimeout(()=>{const nowDark=document.body.classList.toggle("dark-mode");if(c){try{if(nowDark){c.currentTime=0;c.play();}else{c.pause();c.currentTime=0;}}catch(e){}}localStorage.setItem("darkModeEnabled",document.body.classList.contains("dark-mode"));localStorage.setItem("cricketsPlaying",nowDark?"true":"false");if(h)h.src=nowDark?SPRITES.dark.normal:SPRITES.light.normal;},1000);};
- document.addEventListener("DOMContentLoaded",setHouseSpriteForMode);
+  const SPRITES = {
+    light: { normal:"my_assets/Drawing (1).png", click:"my_assets/Drawing (2).png" },
+    dark:  { normal:"my_assets/Drawing (1)BW.png", click:"my_assets/Drawing (2)BW.png" }
+  };
+  function setHouseSpriteForMode(){
+    const h=document.getElementById("houseButton"); if(!h) return;
+    const d=document.body.classList.contains("dark-mode");
+    h.src = d ? SPRITES.dark.normal : SPRITES.light.normal;
+  }
+  window.setHouseSpriteForMode = setHouseSpriteForMode;
+
+  window.toggleHouseImage = function(){
+    const h=document.getElementById("houseButton");
+    const c=document.getElementById("cricketsAudio");
+    const d=document.getElementById("doorbellSfx");
+    const isDark=document.body.classList.contains("dark-mode");
+    if(d){ try{ d.currentTime=0; d.play(); }catch(e){} }
+    if(h) h.src = isDark ? SPRITES.dark.click : SPRITES.light.click;
+    setTimeout(()=>{
+      const nowDark = document.body.classList.toggle("dark-mode");
+      if(c){ try{ if(nowDark){ c.currentTime=0; c.play(); } else { c.pause(); c.currentTime=0; } }catch(e){} }
+      localStorage.setItem("darkModeEnabled", document.body.classList.contains("dark-mode"));
+      localStorage.setItem("cricketsPlaying", nowDark ? "true":"false");
+      if(h) h.src = nowDark ? SPRITES.dark.normal : SPRITES.light.normal;
+    },1000);
+  };
+  document.addEventListener("DOMContentLoaded", setHouseSpriteForMode);
 })();
 
-// === Page Turn Sound for Navigation Boxes ===
+// === Page Turn Sound for all boxes ===
 document.addEventListener("DOMContentLoaded",()=>{
   const pageTurn=document.getElementById("pageTurnSfx");
-  const boxes=document.querySelectorAll('.nav-box');
-  boxes.forEach(box=>{
-    box.addEventListener('click',e=>{
+  document.querySelectorAll(".nav-box").forEach(box=>{
+    box.addEventListener("click",(e)=>{
+      const href = box.getAttribute("href");
       e.preventDefault();
-      const href=box.getAttribute('href');
-      if(!pageTurn)return window.location.href=href;
+      if(!pageTurn){ if(href) window.location.href = href; return; }
       try{
         pageTurn.currentTime=0;
-        const playPromise=pageTurn.play();
-        const go=()=>{if(href)window.location.href=href;};
-        if(playPromise&&typeof playPromise.then==="function"){
-          playPromise.then(()=>setTimeout(go,900)).catch(()=>setTimeout(go,700));
-        }else setTimeout(go,900);
-      }catch(err){if(href)window.location.href=href;}
+        const go = ()=>{ if(href) window.location.href = href; };
+        const p = pageTurn.play();
+        if(p && typeof p.then==="function"){
+          p.then(()=>setTimeout(go,900)).catch(()=>setTimeout(go,700));
+        } else {
+          setTimeout(go,900);
+        }
+      }catch(err){ if(href) window.location.href = href; }
     });
   });
 });
