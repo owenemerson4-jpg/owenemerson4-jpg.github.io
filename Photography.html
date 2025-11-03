@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Photography - Owen Denver Emerson</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="my_assets/transition.css">
+<script src="my_assets/transition.js" defer></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -115,8 +117,8 @@
 
   <div class="folder-front">
     <div class="photography-grid">
-      <a href="FilmPhotography.html" class="nav-box">Film Photography</a>
-      <a href="Headshots.html" class="nav-box">Headshots</a>
+      <a href="FilmPhotography.html" class="nav-box" data-transition>Film Photography</a>
+      <a href="Headshots.html" class="nav-box" data-transition>Headshots</a>
       <div class="nav-box">[Coming Soon]</div>
       <div class="nav-box">[Coming Soon]</div>
     </div>
@@ -167,17 +169,34 @@ document.addEventListener("DOMContentLoaded",()=>{
     box.addEventListener("click",(e)=>{
       const href = box.getAttribute("href");
       e.preventDefault();
-      if(!pageTurn){ if(href) window.location.href = href; return; }
-      try{
-        pageTurn.currentTime=0;
-        const go = ()=>{ if(href) window.location.href = href; };
-        const p = pageTurn.play();
-        if(p && typeof p.then==="function"){
-          p.then(()=>setTimeout(go,900)).catch(()=>setTimeout(go,700));
-        } else {
-          setTimeout(go,900);
-        }
-      }catch(err){ if(href) window.location.href = href; }
+      if(!href) return;
+
+      if(box.hasAttribute("data-transition")){
+        // Play page turn before triggering transition wipe
+        try {
+          pageTurn.currentTime=0;
+          const playPromise = pageTurn.play();
+          const triggerTransition = ()=>{
+            document.body.dispatchEvent(new CustomEvent('startTransition', {detail:{href}}));
+          };
+          if(playPromise && typeof playPromise.then==="function"){
+            playPromise.then(()=>setTimeout(triggerTransition,500)).catch(()=>triggerTransition());
+          } else {
+            setTimeout(triggerTransition,500);
+          }
+        } catch(err){ document.body.dispatchEvent(new CustomEvent('startTransition', {detail:{href}})); }
+      } else {
+        try{
+          pageTurn.currentTime=0;
+          const go = ()=>{ if(href) window.location.href = href; };
+          const p = pageTurn.play();
+          if(p && typeof p.then==="function"){
+            p.then(()=>setTimeout(go,900)).catch(()=>setTimeout(go,700));
+          } else {
+            setTimeout(go,900);
+          }
+        }catch(err){ if(href) window.location.href = href; }
+      }
     });
   });
 });
