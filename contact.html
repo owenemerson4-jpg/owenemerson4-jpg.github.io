@@ -1,1 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sample Blog Post - Owen Denver Emerson</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    color: #222;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  main {
+    max-width: 850px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  header h2 {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: #555;
+  }
+
+  article p {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+  }
+
+  article img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 2rem 0;
+    border-radius: 6px;
+  }
+
+  article iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 2rem 0;
+    border: none;
+  }
+
+  article audio {
+    display: block;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 3rem 0;
+  }
+
+  .back-placeholder {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.9rem;
+    color: #888;
+    opacity: 0.6;
+    user-select: none;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    header h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="back-placeholder">[Back]</div>
+  <main>
+    <header>
+      <h1>Reflections on Paint and Light</h1>
+      <h2>Exploring texture, tone, and sound in motion</h2>
+    </header>
+
+    <article>
+      <p>Every image carries a rhythm—an undercurrent of balance and contrast. When I began this project, I wanted to explore what happens when those visual rhythms meet sound. This post collects fragments: a mix of textures, stills, and the hum of a place coming alive.</p>
+
+      <img src="my_assets/sample_photo.jpg" alt="Sample photograph of texture and light">
+
+      <p>The scene above was captured at dusk, when the surface reflections started to blur. I’ve found that soft light is less about clarity and more about patience. Waiting for the right moment means letting the world slow down with you.</p>
+
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Sample video embed"></iframe>
+
+      <p>Video, unlike stills, carries the weight of time. In the clip above, movement is the message: repetition, silence, and return. Audio becomes part of the composition.</p>
+
+      <audio controls>
+        <source src="my_assets/sample_audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <p>Listening while watching changes what we see. Texture turns into rhythm. Color becomes tempo. That’s why I consider each medium a translation—one sense learning from another.</p>
+
+      <hr>
+
+      <p>Future updates to this space will blend formats even further: written pieces, spoken reflections, photo mosaics, and field recordings. For now, it remains an open page—a blank sheet ready to absorb the next idea.</p>
+    </article>
+  </main>
+</body>
+</html>
 
