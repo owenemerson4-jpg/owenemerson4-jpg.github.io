@@ -1,184 +1,160 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>White Page – Editor.js Prototype</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Test (1)</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>@import url(https://themes.googleusercontent.com/fonts/css?kit=no52RkK722U1hXp-2MvsnYMDgCxhHbUJ6X5wl1byzZyHpuVWaP-GHFPZzt35558q);.lst-kix_ksgbfnud9ljs-0>li:before{content:"-  "}.lst-kix_ksgbfnud9ljs-2>li:before{content:"-  "}.lst-kix_ksgbfnud9ljs-3>li:before{content:"-  "}li.li-bullet-0:before{margin-left:-18pt;white-space:nowrap;display:inline-block;min-width:18pt}.lst-kix_ksgbfnud9ljs-1>li:before{content:"-  "}.lst-kix_ksgbfnud9ljs-8>li:before{content:"-  "}ul.lst-kix_ksgbfnud9ljs-0{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-1{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-2{list-style-type:none}.lst-kix_ksgbfnud9ljs-7>li:before{content:"-  "}ul.lst-kix_ksgbfnud9ljs-3{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-4{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-5{list-style-type:none}.lst-kix_ksgbfnud9ljs-4>li:before{content:"-  "}.lst-kix_ksgbfnud9ljs-6>li:before{content:"-  "}ul.lst-kix_ksgbfnud9ljs-6{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-7{list-style-type:none}ul.lst-kix_ksgbfnud9ljs-8{list-style-type:none}.lst-kix_ksgbfnud9ljs-5>li:before{content:"-  "}ol{margin:0;padding:0}table td,table th{padding:0}.c13{-webkit-text-decoration-skip:none;color:#000000;font-weight:400;text-decoration:underline;vertical-align:baseline;text-decoration-skip-ink:none;font-size:15pt;font-family:"IBM Plex Sans";font-style:normal}.c2{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:center;height:11pt}.c1{-webkit-text-decoration-skip:none;color:#1155cc;font-weight:400;text-decoration:underline;text-decoration-skip-ink:none;font-size:14pt;font-family:"IBM Plex Sans"}.c10{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:10pt;font-family:"IBM Plex Sans";font-style:normal}.c5{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left;height:11pt}.c3{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:14pt;font-family:"IBM Plex Sans";font-style:normal}.c16{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:17pt;font-family:"IBM Plex Sans";font-style:italic}.c9{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:15pt;font-family:"IBM Plex Sans";font-style:normal}.c7{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:center}.c6{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c12{color:#000000;text-decoration:none;vertical-align:baseline;font-style:normal}.c15{font-weight:700;font-size:19pt;font-family:"IBM Plex Sans"}.c0{font-size:12pt;font-weight:400;font-family:"IBM Plex Sans"}.c14{font-weight:700;font-size:14pt;font-family:"IBM Plex Sans"}.c4{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c11{margin-left:36pt;padding-left:0pt}.c8{color:inherit;text-decoration:inherit}.c17{padding:0;margin:0}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+  <style>
+    html {
+      line-height: normal;
+      letter-spacing: normal;
+    }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      max-width: 800px;
+      margin: 60px auto;
+      font-size: 19px;
+      color: #222;
+      background: #fff;
+      padding: 0 24px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    p {
+      line-height: normal;
+      margin-top: revert;
+      margin-bottom: revert;
+    }
+    p + p { text-indent: 2em; }
+    ul, ol {
+      margin-top: revert;
+      margin-bottom: revert;
+      padding-left: 2.5em;
+      line-height: 1.35;
+    }
+    li {
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+      line-height: 1.35;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 2em;
+      margin-bottom: 1em;
+      font-weight: 600;
+    }
+    span[style*="font-style:italic"], em { font-style: italic !important; }
+    span[style*="font-weight:700"], strong { font-weight: 700 !important; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.8em auto;
+    }
+    iframe, video, audio {
+      max-width: 100%;
+      display: block;
+      margin: 1.8em auto;
+    }
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 1.8rem;
+      color: #222;
+      text-decoration: none;
+      z-index: 100;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+    .back-button:hover {
+      transform: translateX(-3px);
+      opacity: 0.7;
+    }
+    .drive-audio-wrapper {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.5em 0;
+      max-width: 600px;
+    }
+    .drive-audio-wrapper iframe {
+      width: 100%;
+      height: 80px;
+      border: 0;
+    }
+    @media (max-width: 768px) {
+      body { font-size: 17px; margin: 30px auto; }
+      .back-button { font-size: 1.5rem; top: 15px; left: 15px; }
+    }
 
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width:100%; height:100%; background:#fff; color:#222; font-family:'IBM Plex Sans', system-ui, sans-serif; line-height:1.7; }
-  main { max-width: 850px; margin: 4rem auto; padding: 0 1.5rem; }
-  .back-placeholder { position:fixed; top:1.5rem; left:1.5rem; font-size:.9rem; color:#888; opacity:.6; user-select:none; }
-
-  /* View container */
-  #content-view img { width:100%; height:auto; display:block; border-radius:6px; margin:2rem 0; }
-  #content-view iframe { width:100%; aspect-ratio:16/9; border:0; display:block; margin:2rem 0; }
-  #content-view audio { width:100%; display:block; margin:2rem 0; }
-  #content-view h1 { text-align:center; font-size:clamp(1.8rem,3vw,3rem); margin-bottom:.5rem; }
-  #content-view h2 { text-align:center; color:#555; font-weight:400; margin-bottom:2rem; }
-  #content-view p { margin: 1.5rem 0; font-size: clamp(1rem,1.2vw,1.15rem); }
-  #content-view hr { border:none; border-top:1px solid #ddd; margin:3rem 0; }
-
-  /* Editor overlay */
-  #editor-wrap { display:none; position:relative; max-width: 850px; margin: 4rem auto; padding: 0 1.5rem; }
-  #editorjs { background:#fff; border:1px dashed #ccc; border-radius:8px; padding:16px; }
-  .editor-toolbar {
-    position: sticky; top: 0; display:flex; gap:8px; justify-content:flex-end;
-    background: #fff; padding-bottom:8px; margin-bottom:8px; z-index:5; border-bottom:1px solid #eee;
-  }
-  .editor-toolbar button {
-    font: inherit; font-weight:600;
-    padding: 6px 10px; border:1px solid #ccc; border-radius:6px; cursor:pointer; background:#f9f9f9;
-  }
-
-  /* White build-in transition */
-  #white-transition { position:fixed; inset:0; background:#000; display:grid; grid-template-columns:repeat(auto-fill,minmax(60px,1fr)); grid-auto-rows:60px; z-index:9999; }
-  .white-block { background:#fff; opacity:0; transition:none; }
-</style>
+    /* --- fade-in transition --- */
+    #white-transition {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      grid-auto-rows: 60px;
+      z-index: 9999;
+    }
+    .white-block {
+      background: #fff;
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
   <div id="white-transition"></div>
-  <div class="back-placeholder">[Back]</div>
+  <a href="work.html" class="back-button" title="Back">←</a>
+  <p class="c7"><span class="c12 c15">The Blog of Owen Denver Emerson</span></p><p class="c7"><span class="c16">a test file</span></p><p class="c2"><span class="c3"></span></p><p class="c6"><span class="c13">Nov. 9, 2025</span></p><p class="c5"><span class="c12 c0"></span></p><p class="c6"><span class="c0">        </span><span class="c3">Today I’m blogging about my adventures. Lorem ipsum latin pizza. We just went to a football game in Tuscaloosa for the Alabama Crimson Tide. Roll Tide, baby! Here are some photos I captured while out at the tailgate:</span></p><p class="c6"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 335.50px; height: 335.50px;"><img alt="" src="images/image3.png" style="width: 335.50px; height: 335.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 336.50px; height: 336.50px;"><img alt="" src="images/image1.png" style="width: 336.50px; height: 336.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p><p class="c6"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 675.50px; height: 311.53px;"><img alt="" src="images/image6.png" style="width: 675.50px; height: 311.53px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span class="c3">        The best part of this weekend wasn’t the football: it was the tedious website testing I did along the way. Listen to me typing away on my keyboard:</span></p><p class="c6"><span class="c1"><div class="drive-audio-wrapper"><iframe allow="autoplay" src="https://drive.google.com/file/d/1nq0pEzlsiCuf96yh3TqjD1zkB1lH_vKe/preview"></iframe></div></span></p><p class="c6"><span class="c3">That was a fun time.</span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span class="c3">Here’s two more:</span></p><p class="c6"><span class="c1"><div class="drive-audio-wrapper"><iframe allow="autoplay" src="https://drive.google.com/file/d/1nTCg-hmaOQrxZvip3GXXNTNE0PZZa5Oc/preview"></iframe></div></span></p><p class="c6"><span class="c1"><div class="drive-audio-wrapper"><iframe allow="autoplay" src="https://drive.google.com/file/d/1H3J7RvU459S-xHyd5e_PFNcqeKDjjlz6/preview"></iframe></div></span></p><p class="c5"><span class="c3"></span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span class="c3">        I saw the following things on my walk through campus last night:</span></p><p class="c5"><span class="c3"></span></p><ul class="c17 lst-kix_ksgbfnud9ljs-0 start"><li class="c6 c11 li-bullet-0"><span class="c3">Twelve drummers drumming</span></li><li class="c6 c11 li-bullet-0"><span class="c3">Eight maids a milking</span></li><li class="c6 c11 li-bullet-0"><span class="c3">Seven swans a swimming</span></li><li class="c6 c11 li-bullet-0"><span class="c3">Six geese a laying</span></li><li class="c6 c11 li-bullet-0"><span class="c10">Five golden rings!</span></li></ul><p class="c5"><span class="c10"></span></p><p class="c5"><span class="c10"></span></p><p class="c6"><span class="c3">        Finally, to commemorate the gameday atmosphere, please watch this unrelated videoFinally, to commemorate the gameday atmosphere, please watch this unrelated videoFinally, to commemorate the gameday atmosphere, please watch this unrelated videoFinally, to commemorate the gameday atmosphere, please watch this unrelated videoFinally, to commemorate the gameday atmosphere, please watch this unrelated videoFinally, to commemorate the gameday atmosphere, please watch this unrelated video</span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span class="c3">Finally, to commemorate the gameday atmosphere, please watch this unrelated video:</span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span class="c1"><div style="text-align:center; margin: 2em 0;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen="True" frameborder="0" height="315" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ozqXdUbPdJY" title="YouTube video player" width="560"></iframe></div></span></p><p class="c5"><span class="c3"></span></p><p class="c6"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 192.00px; height: 184.00px;"><img alt="A cartoon of a monster
 
-  <main>
-    <!-- View Mode -->
-    <div id="content-view"></div>
+AI-generated content may be incorrect." src="images/image4.gif" style="width: 192.00px; height: 184.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 206.49px; height: 208.44px;"><img alt="A video game of a cartoon television
 
-    <!-- Edit Mode -->
-    <div id="editor-wrap">
-      <div class="editor-toolbar">
-        <button id="load-sample">Load Sample</button>
-        <button id="save-btn">Save</button>
-        <button id="exit-btn">Exit</button>
-      </div>
-      <div id="editorjs"></div>
-    </div>
+AI-generated content may be incorrect." src="images/image8.gif" style="width: 206.49px; height: 208.44px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 233.66px; height: 197.43px;"><img alt="A screenshot of a video with Marfa lights in the background
 
-    <div style="text-align:right; margin-top:1rem;">
-      <button id="edit-toggle" title="Ctrl+E">Edit</button>
-    </div>
-  </main>
+AI-generated content may be incorrect." src="images/image2.gif" style="width: 233.66px; height: 197.43px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p><p class="c6"><span class="c0 c12">^a swirly thing                          ^”Hello, World!”                        ^This one is by Mary Ellen Bute</span></p><p class="c6"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 328.47px; height: 270.57px;"><img alt="Cartoon of a person walking on a sidewalk
 
-  <!-- Editor.js and tools (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/editorjs-html@latest/build/edjsHTML.umd.js"></script>
+AI-generated content may be incorrect." src="images/image7.gif" style="width: 328.47px; height: 270.57px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 302.50px; height: 279.95px;"><img alt="A cartoon of a person with a head
+
+AI-generated content may be incorrect." src="images/image5.gif" style="width: 302.50px; height: 279.95px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p><p class="c6"><span class="c9">^”I like Ducks.”                                                    ^”Help. Do I need help?”</span></p><p class="c5"><span class="c9"></span></p><p class="c5"><span class="c9"></span></p><p class="c2"><span class="c3"></span></p><p class="c5"><span class="c3"></span></p><p class="c7"><span class="c12 c14">Fin.        </span></p><p class="c2"><span class="c12 c14"></span></p><p class="c6"><span class="c1"><div style="text-align:center; margin: 2em 0;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen="True" frameborder="0" height="315" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/93zzKz-2PZU" title="YouTube video player" width="560"></iframe></div></span></p><p class="c6"><span class="c1"><div style="text-align:center; margin: 2em 0;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen="True" frameborder="0" height="315" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/_uOW3KGPqtA" title="YouTube video player" width="560"></iframe></div></span></p><p class="c5"><span class="c3"></span></p>
 
 <script>
-/* ---------- White build-in transition ---------- */
 document.addEventListener("DOMContentLoaded", () => {
-  const c = document.getElementById("white-transition");
+  const container = document.getElementById("white-transition");
   const cols = Math.ceil(window.innerWidth / 60);
   const rows = Math.ceil(window.innerHeight / 60);
   const total = cols * rows;
   for (let i = 0; i < total; i++) {
-    const b = document.createElement("div"); b.className = "white-block"; c.appendChild(b);
+    const b = document.createElement("div");
+    b.className = "white-block";
+    container.appendChild(b);
   }
-  const blocks = Array.from(c.children).sort(() => Math.random() - 0.5);
-  let i = 0, step = 25;
+  const blocks = Array.from(container.children);
+  blocks.sort(() => Math.random() - 0.5);
+  let index = 0;
+  const step = 25;
   const interval = setInterval(() => {
-    for (let j = 0; j < step && i < blocks.length; j++, i++) blocks[i].style.opacity = 1;
-    if (i >= blocks.length) {
+    for (let i = 0; i < step && index < blocks.length; i++, index++) {
+      blocks[index].style.opacity = 1;
+    }
+    if (index >= blocks.length) {
       clearInterval(interval);
-      setTimeout(() => { c.style.transition = "opacity .3s ease-out"; c.style.opacity = 0; setTimeout(() => c.remove(), 400); }, 150);
+      setTimeout(() => {
+        container.style.transition = "opacity 0.3s ease-out";
+        container.style.opacity = 0;
+        setTimeout(() => container.remove(), 400);
+      }, 150);
     }
   }, 25);
 });
-
-/* ---------- Editor.js setup ---------- */
-let editor;
-const STORAGE_KEY = 'white_page_editor_data';
-
-const initialData = {
-  time: Date.now(),
-  blocks: [
-    { type: 'header', data: { text: 'Reflections on Paint and Light', level: 1 } },
-    { type: 'paragraph', data: { text: 'Exploring texture, tone, and sound in motion' } },
-    { type: 'paragraph', data: { text: 'Every image carries a rhythm—an undercurrent of balance and contrast. When I began this project, I wanted to explore what happens when those visual rhythms meet sound. This post collects fragments: a mix of textures, stills, and the hum of a place coming alive.' } },
-    { type: 'simpleImage', data: { url: 'my_assets/MoonTexture.jpg', caption: 'Sample photograph of texture and light', withBorder: false, withBackground: false, stretched: false } },
-    { type: 'paragraph', data: { text: 'The scene above was captured at dusk, when the surface reflections started to blur. I’ve found that soft light is less about clarity and more about patience. Waiting for the right moment means letting the world slow down with you.' } },
-    { type: 'embed', data: { service: 'youtube', source: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', embed: 'https://www.youtube.com/embed/dQw4w9WgXcQ', width: 580, height: 320, caption: 'Sample video embed' } },
-    { type: 'paragraph', data: { text: 'Video, unlike stills, carries the weight of time. In the clip above, movement is the message: repetition, silence, and return. Audio becomes part of the composition.' } },
-    // Raw block lets you paste any HTML (e.g., <audio> player)
-    { type: 'raw', data: { html: '<audio controls><source src="my_assets/doorbell.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>' } },
-    { type: 'paragraph', data: { text: 'Listening while watching changes what we see. Texture turns into rhythm. Color becomes tempo. That’s why I consider each medium a translation—one sense learning from another.' } },
-    { type: 'delimiter' },
-    { type: 'paragraph', data: { text: 'Future updates to this space will blend formats even further: written pieces, spoken reflections, photo mosaics, and field recordings. For now, it remains an open page—a blank sheet ready to absorb the next idea.' } }
-  ],
-  version: '2.29.0'
-};
-
-function renderView(data) {
-  const edjsParser = edjsHTML();
-  const html = edjsParser.parse(data).join('\n');
-  document.getElementById('content-view').innerHTML = html;
-}
-
-function loadData() {
-  const cached = localStorage.getItem(STORAGE_KEY);
-  if (cached) {
-    try { return JSON.parse(cached); } catch {}
-  }
-  return initialData;
-}
-
-function initEditor(data) {
-  if (editor) return;
-  editor = new EditorJS({
-    holder: 'editorjs',
-    autofocus: true,
-    data,
-    tools: {
-      header: { class: Header, inlineToolbar: true, config: { levels: [1,2,3,4], defaultLevel: 2 } },
-      list: { class: List, inlineToolbar: true },
-      simpleImage: { class: SimpleImage, inlineToolbar: true },
-      embed: { class: Embed, inlineToolbar: true, config: { services: { youtube: true, vimeo: true } } },
-      raw: { class: RawTool }
-    },
-    onReady: () => {/* no-op */},
-    onChange: () => {/* live changes handled on save */},
-  });
-}
-
-function enterEdit() {
-  document.getElementById('content-view').style.display = 'none';
-  document.getElementById('editor-wrap').style.display = 'block';
-  initEditor(loadData());
-}
-function exitEdit() {
-  document.getElementById('editor-wrap').style.display = 'none';
-  document.getElementById('content-view').style.display = 'block';
-}
-
-document.getElementById('edit-toggle').addEventListener('click', enterEdit);
-document.addEventListener('keydown', (e)=>{ if (e.ctrlKey && e.key === 'e') { e.preventDefault(); enterEdit(); } });
-
-document.getElementById('exit-btn').addEventListener('click', exitEdit);
-document.getElementById('load-sample').addEventListener('click', ()=>{
-  if (editor) {
-    editor.render(initialData);
-  }
-});
-
-document.getElementById('save-btn').addEventListener('click', async ()=>{
-  const output = await editor.save();
-  // cache for in-progress work
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(output));
-  // render the new HTML
-  renderView(output);
-  // show in console for copy/paste to your repo
-  console.log('--- Editor.js JSON ---\\n', JSON.stringify(output, null, 2));
-  exitEdit();
-});
-
-// initial render
-renderView(loadData());
 </script>
 </body>
 </html>
