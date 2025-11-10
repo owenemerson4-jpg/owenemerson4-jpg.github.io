@@ -464,10 +464,23 @@ function getTheme() {
   function preload() {}
 
 function setup() {
+  // Safe universal first-frame pixelDensity tweak
+  try { pixelDensity(1); } catch(e){}
+  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const idle = isiOS ? (fn)=>setTimeout(fn,0) : (window.requestIdleCallback || ((fn)=>setTimeout(fn,0)));
+  idle(() => { try { pixelDensity(Math.min(window.devicePixelRatio || 1, 1.5)); } catch(e){} });
+
+  // Universal first-frame pixelDensity tweak; bump after first paint
+  try { pixelDensity(1); } catch(e){}
+
+               ? (fn)=>setTimeout(fn,0)
+               : (window.requestIdleCallback || ((fn)=>setTimeout(fn,0)));
+  idle(() => { try { pixelDensity(Math.min(window.devicePixelRatio || 1, 1.5)); } catch(e){} });
+
     if (typeof pixelDensity === 'function') { try { pixelDensity(window.devicePixelRatio > 1 ? 1.5 : 1); } catch(e){} }
 const aspectRatio = 0.25;
     const cnv = createCanvas(windowWidth, windowWidth * aspectRatio, WEBGL);
-  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   try { document.createElement('canvas').getContext('2d'); } catch(e){}
   if (isiOS) { try { pixelDensity(1); } catch(e){} }
   const idle = isiOS ? (fn)=>setTimeout(fn,0) : (window.requestIdleCallback || ((fn)=>setTimeout(fn,0)));
@@ -520,7 +533,7 @@ const aspectRatio = 0.25;
     computeLayoutTargets();
     radius = targetRadius;
     sphereCX = targetSphereCX;
-    updateTextLayer(radius, sphereCX);
+    textDirty = true;
   }
 
   function draw() {
@@ -533,6 +546,7 @@ const aspectRatio = 0.25;
       gridTex.clear();
       drawGridTexture(gridTex, dark);
       lastDark = dark;
+      textDirty = true;
     textDirty = true;
     }
 
