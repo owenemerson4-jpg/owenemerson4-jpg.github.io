@@ -77,12 +77,16 @@
       }
 
       /* Cancel paragraph indent when it only contains an image */
-      p > img:first-child:last-child { text-indent: 0 !important; margin-left: 0 !important; }
-      p:has(> img:only-child) { text-indent: 0 !important; }
+      /* Fix unwanted indent/padding for paragraphs that only contain an image */
+      p:has(> img:only-child),
+      p > img:first-child:last-child {
+      text-indent: 0 !important;
+      margin: 0.5em 0 !important;
+      padding: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      }
 
-      /* Neutralize exported inline widths and margins */
-      [style*='width:'] { width: auto !important; max-width: 100% !important; }
-      [style*='margin-left'] { margin-left: 0 !important; }
 
       iframe, video, audio { max-width: 100% !important; margin: 1.2em 0 !important; }
       p + p { text-indent: 1em; }
@@ -90,6 +94,8 @@
 
     #white-transition { position: fixed; inset: 0; background: #000; display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); grid-auto-rows: 60px; z-index: 9999; }
     .white-block { background: #fff; opacity: 0; }
+
+
   </style>
 </head>
 <body>
@@ -130,6 +136,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 25);
 });
+window.addEventListener('orientationchange', () => {
+  document.querySelectorAll('img, iframe, video').forEach(el => {
+    el.style.width = '100%';
+    el.style.maxWidth = '100%';
+    el.style.height = 'auto';
+  });
+  document.body.offsetHeight; // Force reflow
+});
+
 </script>
 </body>
 </html>
