@@ -516,6 +516,8 @@ const aspectRatio = 0.25;
 
     // Text layer
     textLayer = createGraphics(width, height);
+    textLayer.pixelDensity(2); // restore clarity
+    textLayer.clear();
     textLayer.pixelDensity(1);
     textLayer.clear();
 
