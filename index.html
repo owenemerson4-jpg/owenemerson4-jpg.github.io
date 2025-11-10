@@ -387,12 +387,7 @@ body.dark-mode .paper { background:#444; border-color:#666; }
   <div class="paper" aria-hidden="true"></div>
 
   <!-- p5 sketch holder -->
-  <div id="p5-holder">
-  <span id="name-fallback" style="position:absolute;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:clamp(2rem,5vw,5rem);">Owen Denver Emerson</span></div>
-<script>(function killFallback(){const c=document.querySelector('#p5-holder canvas.p5Canvas');if(c){const f=document.getElementById('name-fallback'); if(f) f.remove();}else requestAnimationFrame(killFallback);})();</script>
-
-
-  <!-- Green text box -->
+  <div id="p5-holder"></div><!-- Green text box -->
   <div class="green-text-box">
     <span>...is telling multimedia stories</span>
   </div>
@@ -466,12 +461,29 @@ function getTheme() {
   }
 }
 
-function preload() {}
+  function preload() {}
 
 function setup() {
     if (typeof pixelDensity === 'function') { try { pixelDensity(window.devicePixelRatio > 1 ? 1.5 : 1); } catch(e){} }
 const aspectRatio = 0.25;
     const cnv = createCanvas(windowWidth, windowWidth * aspectRatio, WEBGL);
+  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  try { document.createElement('canvas').getContext('2d'); } catch(e){}
+  if (isiOS) { try { pixelDensity(1); } catch(e){} }
+  const idle = isiOS ? (fn)=>setTimeout(fn,0) : (window.requestIdleCallback || ((fn)=>setTimeout(fn,0)));
+
+  // Lazy-load moon texture (ensures it's ready in dark mode)
+  
+  idle(() => {
+    try {
+      loadImage('my_assets/MoonTexture.jpg', (img) => {
+        moonImg = img;
+        moonReady = true;
+        if (typeof textDirty !== 'undefined') textDirty = true;
+      }, () => { moonReady = false; });
+    } catch (e) { moonReady = false; }
+  });
+
 
   // Quicker first frame; restore quality shortly after
   sphereDetail = 24;
