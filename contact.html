@@ -69,7 +69,7 @@
         display: block;
         margin: 1.2em 0 !important;
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 100vw !important;
         height: auto !important;
         object-fit: contain !important;
         margin-left: 0 !important;
@@ -79,7 +79,8 @@
       /* Cancel paragraph indent when it only contains an image */
       /* Fix unwanted indent/padding for paragraphs that only contain an image */
       p:has(> img:only-child),
-      p > img:first-child:last-child {
+      p > img:first-child:last-child,
+      p img:only-child {
       text-indent: 0 !important;
       margin: 0.5em 0 !important;
       padding: 0 !important;
