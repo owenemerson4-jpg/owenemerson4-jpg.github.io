@@ -332,6 +332,8 @@ body.dark-mode .card { background:#181818; border-color:#444; }
 /* Paper */
 body.dark-mode .paper { background:#444; border-color:#666; }
 
+
+#card-stack-wrapper { visibility: hidden; }
 </style>
 
   <!-- Performance preloads -->
@@ -521,6 +523,7 @@ const aspectRatio = 0.25;
     radius = targetRadius;
     sphereCX = targetSphereCX;
     updateTextLayer(radius, sphereCX);
+  signalP5Ready();
   }
 
   function draw() {
@@ -739,7 +742,14 @@ function updateTextLayer(r = 0, sCX = 0) {
     gridTex.clear();
     drawGridTexture(gridTex, isDarkMode());
   }
-  </script>
+  
+
+function signalP5Ready() {
+  document.body.dataset.p5ready = 'true';
+  const wrapper = document.getElementById('card-stack-wrapper');
+  if (wrapper) wrapper.style.visibility = 'visible';
+}
+</script>
 
 
   <!-- card stack animation -->
@@ -1053,6 +1063,43 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.addEventListener("DOMContentLoaded", setHouseSpriteForMode);
+})();
+</script>
+
+
+<script id="defer-heavy-assets">
+(function(){
+  const videos = document.querySelectorAll('.card video');
+  const imgs   = document.querySelectorAll('.card img');
+
+  videos.forEach(v => {
+    v.dataset.src = v.getAttribute('src');
+    v.removeAttribute('src');
+    v.preload = 'none';
+  });
+
+  imgs.forEach(img => {
+    img.dataset.src = img.getAttribute('src');
+    img.removeAttribute('src');
+  });
+
+  const observer = new MutationObserver(() => {
+    if (document.body.dataset.p5ready === "true") {
+      videos.forEach(v => {
+        if (v.dataset.src) {
+          v.src = v.dataset.src;
+          v.load();
+          v.play().catch(()=>{});
+        }
+      });
+      imgs.forEach(img => {
+        if (img.dataset.src) img.src = img.dataset.src;
+      });
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.body, { attributes:true, attributeFilter:['data-p5ready'] });
 })();
 </script>
 
