@@ -464,6 +464,24 @@ function getTheme() {
   function preload() {}
 
 function setup() {
+  // --- Performance optimizations (non-destructive) ---
+  try { pixelDensity(1); } catch(e){}
+  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const idle = isiOS ? (fn)=>setTimeout(fn,0)
+                     : (window.requestIdleCallback || ((fn)=>setTimeout(fn,0)));
+  idle(() => { try { pixelDensity(Math.min(window.devicePixelRatio || 1, 1.5)); } catch(e){} });
+  setAttributes('antialias', false);
+  requestAnimationFrame(() => setAttributes('antialias', true));
+  // Non-blocking texture load
+  idle(() => {
+    loadImage('my_assets/MoonTexture.jpg',
+      (img) => { moonTexture = img; textureReady = true; },
+      () => { textureReady = false; }
+    );
+  });
+  textDirty = true;
+  // --- End of optimizations ---
+
     if (typeof pixelDensity === 'function') { try { pixelDensity(window.devicePixelRatio > 1 ? 1.5 : 1); } catch(e){} }
 const aspectRatio = 0.25;
     const cnv = createCanvas(windowWidth, windowWidth * aspectRatio, WEBGL);
