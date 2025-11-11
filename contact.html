@@ -145,22 +145,46 @@
   @media (max-width:900px){
     .folder-front { padding:2%; }
   }
-  @media (max-width:768px){
-    .house-image { right:4%; height:10vh; bottom: calc(100% - var(--folder-back-top, 12.6vh)); }
-    .contact-photo-row {
-      flex-wrap: wrap;
-      height: auto;
-      margin-top: 1%;
-    }
+@media (max-width:768px) {
+  .house-image {
+    right: 4%;
+    height: 10vh;
+    bottom: calc(100% - var(--folder-back-top, 12.6vh));
+  }
+
+  /* Photo row: make it taller and better spaced on phones */
+  .contact-photo-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    height: auto;
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+
+  .contact-photo-row img {
+    flex: 1 1 45%;
+    max-width: 45%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+  /* Optional: slightly larger for mid-size tablets */
+  @media (max-width:500px) {
     .contact-photo-row img {
-      max-width: 40%;
-      margin-bottom: 8px;
-    }
-    .contact-links {
-      margin-top: 10px;
-      margin-bottom: 14px;
+      flex: 1 1 48%;
+      max-width: 48%;
     }
   }
+
+  .contact-links {
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+}
+
 
   /* Dark mode palette */
   body.dark-mode {
