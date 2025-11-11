@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animations Digital Art (1)</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>@import url(https://themes.googleusercontent.com/fonts/css?kit=no52RkK722U1hXp-2MvsnYMDgCxhHbUJ6X5wl1byzZyHpuVWaP-GHFPZzt35558q);ol{margin:0;padding:0}table td,table th{padding:0}.c4{-webkit-text-decoration-skip:none;color:#000000;font-weight:400;text-decoration:underline;vertical-align:baseline;text-decoration-skip-ink:none;font-size:14pt;font-family:"IBM Plex Sans";font-style:normal}.c5{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left;height:11pt}.c7{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:center;height:11pt}.c3{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:16pt;font-family:"IBM Plex Sans";font-style:normal}.c6{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c11{-webkit-text-decoration-skip:none;color:#000000;text-decoration:underline;vertical-align:baseline;text-decoration-skip-ink:none;font-style:normal}.c13{font-size:20pt;font-family:"IBM Plex Sans";font-style:italic;font-weight:700}.c0{font-size:14pt;font-family:"IBM Plex Sans";font-style:italic;font-weight:400}.c2{-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline;text-decoration-skip-ink:none}.c10{font-weight:400;font-size:18pt;font-family:"IBM Plex Sans"}.c14{font-weight:400;font-size:14pt;font-family:"IBM Plex Sans"}.c15{font-weight:400;font-size:12pt;font-family:"IBM Plex Sans"}.c8{color:#000000;text-decoration:none;vertical-align:baseline}.c16{font-weight:400;font-size:15pt;font-family:"IBM Plex Sans"}.c17{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c9{font-size:13pt;font-weight:400;font-family:"IBM Plex Sans"}.c1{color:inherit;text-decoration:inherit}.c12{font-style:normal}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+  <style>
+    html {
+      line-height: normal;
+      letter-spacing: normal;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      max-width: 800px;
+      margin: 60px auto;
+      font-size: 19px;
+      color: #222;
+      background: #fff;
+      padding-inline: clamp(12px, 5vw, 24px);
+      position: relative;
+      overflow-x: hidden;
+      word-break: break-word;
+    }
+    p { line-height: normal; margin-top: revert; margin-bottom: revert; }
+    p + p { text-indent: 0; }
+    ul, ol { margin-top: revert; margin-bottom: revert; padding-left: 2.5em; line-height: 1.35; }
+    li { margin-top: 0.3em; margin-bottom: 0.3em; line-height: 1.35; }
+    h1, h2, h3, h4, h5, h6 { margin-top: 2em; margin-bottom: 1em; font-weight: 600; }
+    span[style*='font-style:italic'], em { font-style: italic !important; }
+    span[style*='font-weight:700'], strong { font-weight: 700 !important; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img {
+      display: block;
+      margin: 1.5em auto;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: none;
+    }
+
+    iframe, video, audio {
+      display: block;
+      margin: 1.8em auto;
+      max-width: 100%;
+      height: auto;
+    }
+
+    iframe[src*='youtube.com'] { aspect-ratio: 16 / 9; width: 100%; height: auto; }
+
+    .back-button { position: fixed; top: 20px; left: 20px; font-size: 1.8rem; color: #222; text-decoration: none; z-index: 100; transition: transform 0.15s ease, opacity 0.2s ease; }
+    .back-button:hover { transform: translateX(-3px); opacity: 0.7; }
+
+    .drive-audio-wrapper { background: #fff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden; display: flex; justify-content: center; align-items: center; margin: 1.5em 0; max-width: 100%; }
+    .drive-audio-wrapper iframe { width: 100%; height: 80px; border: 0; }
+
+    @media (max-width: 768px) {
+      #doc-content img {
+          display: block;
+          margin: 1.2em 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+      }
+
+      /* if Docs injected pixel widths/margins on wrappers, ignore them on mobile */
+      #doc-content [style*="width:"],
+      #doc-content [style*="max-width:"],
+      #doc-content [style*="margin-left:"],
+      #doc-content [style*="padding-left:"] {
+          width: auto !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          padding-left: 0 !important;
+      }
+
+      /* paragraph that effectively only houses an image */
+      #doc-content p > img:first-child:last-child,
+      #doc-content p > span:only-child > img:only-child,
+      #doc-content p > a:only-child > img:only-child {
+          text-indent: 0 !important;
+          margin: 0.5em 0 !important;
+          padding: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+      }
+    }
+
+    /* --- white build-in transition --- */
+    #white-transition {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      grid-auto-rows: 60px;
+      z-index: 9999;
+    }
+    .white-block {
+      background: #fff;
+      opacity: 0;
+      transition: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="white-transition"></div>
+  <a href="/owendenveremerson/work.html" class="back-button" title="Back">←</a>
+  <main id="doc-content"><p class="c6"><span class="c13">I create </span><span class="c8 c12 c16">animations and interactive digital artworks to accompany my multimedia projects and installations. Check out some highlights below! Source code or higher-quality recordings are available upon request. Click the CONTACT tab of the main website to get my info.</span></p><p class="c5"><span class="c8 c16 c12"></span></p><p class="c6"><span class="c11 c10">Featured</span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c9">—----------------------------------------------------------------------------------------</span></p><p class="c6"><span class="c3">“Midnight Snack”</span></p><p class="c6"><span class="c0">A kitschy animation created as a visual accompaniment to my song “</span><span class="c0 c2"><a class="c1" href="https://www.google.com/url?q=https://www.youtube.com/watch?v%3DYsuSH69QThg%26list%3DOLAK5uy_lF_SVTE3cd0IK52dxj2guy1MkstC0_ohQ%26index%3D4&amp;sa=D&amp;source=editors&amp;ust=1762895471509656&amp;usg=AOvVaw1Wnjk4m_ewhzoGsiQpYrhf">story.</a></span><span class="c0 c8">”. Created in Adobe After Effects from hand-drawn assets. Featuring original music.</span></p><p class="c6"><span class="c2 c14"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/x6SlkbadDwI" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c5"><span class="c8 c9 c12"></span></p><p class="c5"><span class="c8 c9 c12"></span></p><p class="c6"><span class="c9">—----------------------------------------------------------------------------------------</span></p><p class="c6"><span class="c3">“Lucy Leaves Town”</span></p><p class="c6"><span class="c0 c8">A nostalgic low-poly animation with interactive audio or visuals. Featuring original music. As the user scrolls their cursor further from the Earth, Lucy flies out into deep space, revealing a constellation of rainbow-colored stars and extraterrestrial sounds. This is achieved using mouse tracking mapped to the opacity of 3D objects and the frequency cutoff of a bandpass filter.</span></p><p class="c6"><span class="c2 c14"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/6lxxoXXlgWM" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c5"><span class="c8 c9 c12"></span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c8 c9 c12">—----------------------------------------------------------------------------------------</span></p><p class="c6"><span class="c3">Processing Mini-Sketches</span></p><p class="c6"><span class="c0">A series of artworks created using </span><span class="c0 c2"><a class="c1" href="https://www.google.com/url?q=https://processing.org/&amp;sa=D&amp;source=editors&amp;ust=1762895471511616&amp;usg=AOvVaw0FmOjG8VClnURBhj7tzk7T">Processing</a></span><span class="c0 c8">, a coding language and platform designed for visual artists</span></p><p class="c5"><span class="c0 c8"></span></p><p class="c6"><span class="c2 c10"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/DxsRAamGano" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c0">^Houses.pde, a generative art program that creates random abstract compositions based on the colors of Georges Braque’s </span><span class="c0 c2"><a class="c1" href="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Houses_at_l%2527Estaque&amp;sa=D&amp;source=editors&amp;ust=1762895471512268&amp;usg=AOvVaw3VnuFqHRlHLG26vgHnc8it">“Houses at l’Estaque”</a></span></p><p class="c5"><span class="c10 c11"></span></p><p class="c6"><span class="c2 c10"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/OHokAAapviE" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c0 c8">^Finding Flowers.pde, an interactive game that generates minimalist “fields” and allows the user to scroll the mouse over the canvas to discover its hidden flowers</span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c2 c10"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/CM4gbijCaP4" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c5"><span class="c11 c10"></span></p><p class="c6"><span class="c0">^PAINTROCK.pde, a low-poly animation depicting my artist logo: a house on a moonlit night.</span></p><p class="c5"><span class="c4"></span></p><p class="c5"><span class="c4"></span></p><p class="c7"><span class="c4"></span></p><p class="c5"><span class="c8 c12 c15"></span></p><p class="c5"><span class="c8 c16 c12"></span></p><p class="c5"><span class="c0 c8"></span></p><p class="c5"><span class="c4"></span></p><p class="c5"><span class="c4"></span></p><p class="c7"><span class="c4"></span></p><p class="c5"><span class="c15 c8 c12"></span></p></main>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("white-transition");
+  const cols = Math.ceil(window.innerWidth / 60);
+  const rows = Math.ceil(window.innerHeight / 60);
+  const total = cols * rows;
+
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement("div");
+    b.className = "white-block";
+    container.appendChild(b);
+  }
+
+  const blocks = Array.from(container.children);
+  blocks.sort(() => Math.random() - 0.5);
+
+  let index = 0;
+  const step = 25;
+  const interval = setInterval(() => {
+    for (let i = 0; i < step && index < blocks.length; i++, index++) {
+      blocks[index].style.opacity = 1;
+    }
+    if (index >= blocks.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        container.style.transition = "opacity 0.3s ease-out";
+        container.style.opacity = 0;
+        setTimeout(() => container.remove(), 400);
+      }, 150);
+    }
+  }, 25);
+});
+
+window.addEventListener('orientationchange', () => {
+  document.querySelectorAll('img, iframe, video').forEach(el => {
+    el.style.width = '100%';
+    el.style.maxWidth = '100%';
+    el.style.height = 'auto';
+  });
+  document.body.offsetHeight; // Force reflow
+});
+</script>
+</body>
+</html>
