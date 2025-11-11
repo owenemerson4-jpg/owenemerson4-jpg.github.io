@@ -138,8 +138,11 @@
 
 <script>
 // ===== CONFIG =====
-const IMAGE_BASE_PATH = "websitephotos/";
-const MANIFEST_URL = "photolist.json";
+// Corrected for GitHub Pages under /owendenveremerson/
+const REPO_BASE = "/owendenveremerson/";
+const IMAGE_BASE_PATH = REPO_BASE + "websitephotos/";
+const MANIFEST_URL = REPO_BASE + "photolist.json";
+
 const BATCH_SIZE = 60;
 
 // ===== Lightbox logic =====
