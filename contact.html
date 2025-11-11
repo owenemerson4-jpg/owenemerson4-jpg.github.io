@@ -36,8 +36,8 @@
   .folder-front {
     position:absolute; bottom:0; left:0; width:100%; top:20%;
     background:linear-gradient(to bottom,#f5e0a1 0%,#f2d58b 100%);
-    z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:4%;
+    z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    padding:1% 4% 4% 4%;
   }
 
   /* Tabs */
@@ -65,9 +65,157 @@
   }
   .house-image:active { transform:scale(0.96); }
 
+  /* Contact photo row */
+  .contact-photo-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 40%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+  }
+
+  .contact-photo-row img {
+    flex: 0 0 auto; 
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    vertical-align: middle;
+  }
+
+  /* individual relative sizing */
+  .contact-photo-row img.photo1 { max-width: 13%; }
+  .contact-photo-row img.photo2 { max-width: 17%; }
+  .contact-photo-row img.photo3 { max-width: 15%; }
+  .contact-photo-row img.photo4 { max-width: 18%; }
+
+  /* Contact icon row */
+  .contact-icon-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 2%;
+    margin-top: 0.5%;
+  }
+
+  .contact-icon-row a {
+    color: #1f4d2b; /* same green as Work tab */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.4rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-icon-row a:hover {
+    color: #5a3131; /* red like Contact tab */
+    transform: translateY(-2px);
+  }
+
+  .contact-icon-row img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(400%) hue-rotate(80deg) brightness(90%) contrast(90%);
+    transition: filter 0.3s ease, transform 0.2s ease;
+  }
+
+  .contact-icon-row a:hover img {
+    filter: brightness(0) saturate(100%) invert(18%) sepia(20%) saturate(400%) hue-rotate(320deg) brightness(80%) contrast(85%);
+    transform: translateY(-2px);
+  }
+
+  /* Dark mode adjustment for icons */
+  body.dark-mode .contact-icon-row a {
+    color: #d5e6d0;
+  }
+
+  body.dark-mode .contact-icon-row img {
+    filter: invert(80%) brightness(90%);
+  }
+
+  /* Contact red text box */
+  .contact-text-box {
+    background: #f7cfcf;
+    border: 2px solid #5a3131;
+    color: #5a3131;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-weight: 500;
+    max-width: 70%;
+    margin-top: 3%;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-radius: 0;
+    z-index: 6;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .contact-text-box p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  body.dark-mode .contact-text-box {
+    background: #1c1c1c;
+    border: 1px solid #555;
+    color: #f5f5f5;
+  }
+
+@media (max-width: 768px) {
+  /* Bigger photos on mobile: 2-up, large tiles */
+  .contact-photo-row {
+    flex-wrap: wrap;
+    height: 72px;            /* let content define height */
+    margin-top: 2%;
+    margin-bottom: 2%;       /* a little breathing room before the icons */
+    gap: 12px;               /* slightly larger gap for big tiles */
+  }
+  .contact-photo-row img {
+    /* Force large size: 2 across with gap */
+    flex: 0 0 47%;
+    width: 51%;
+    max-width: none;         /* ignore desktop max-width */
+    max-height: none;        /* remove height limiter that keeps them small */
+    margin-bottom: 2px;
+  }
+
+  /* Icon row: push down a bit, tighten spacing to the text box */
+  .contact-icon-row {
+    gap: 24px;
+    margin-top: 4%;          /* pushes the trio LOWER on the page */
+    margin-bottom: 2%;       /* tighter gap before the red box */
+  }
+  .contact-icon-row img {
+    height: 24px;            /* a touch smaller is nicer under big photos */
+  }
+  .contact-icon-row a {
+    font-size: 1.2rem;
+  }
+
+  /* Text box: near bottom but not touching */
+  .contact-text-box {
+    max-width: 92%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-top: auto;        /* stay low in the folder front */
+    margin-bottom: 3%;       /* keep off the bottom edge */
+  }
+}
+
+
+
   /* Responsive */
   @media (max-width:900px){
-    .folder-front { padding:6%; }
+    .folder-front { padding:2%; }
   }
   @media (max-width:768px){
     .house-image { right:4%; height:10vh; bottom: calc(100% - var(--folder-back-top, 12.6vh)); }
@@ -109,9 +257,33 @@
   <audio id="clickSfx" src="my_assets/click.mp3" preload="auto"></audio>
   <audio id="pageTurnSfx" src="my_assets/pageturn.mp3" preload="auto"></audio>
 
-  <!-- Folder front (empty for new content) -->
+  <!-- Folder front content -->
   <div class="folder-front">
-    <!-- Placeholder: content will go here later -->
+    <div class="contact-photo-row">
+      <img src="my_assets/headshot.jpeg" alt="Headshot" class="photo1">
+      <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2" class="photo2">
+      <img src="my_assets/ManFront.png" alt="Man Front" class="photo3">
+      <img src="my_assets/mirror.jpg" alt="Mirror" class="photo4">
+    </div>
+
+    <!-- Icon row -->
+    <div class="contact-icon-row">
+      <a href="https://www.linkedin.com" target="_blank">
+        <img src="my_assets/linkedin2.svg" alt="LinkedIn">
+      </a>
+      <a href="Resume.html">Resume</a>
+      <a href="https://www.instagram.com" target="_blank">
+        <img src="my_assets/instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+    <div class="contact-text-box">
+      <p>
+        Hi y'all! My name is Owen. I am a composer, writer, designer, and multimedia artist telling Gen Z bedtime stories.
+        You can reach me at <strong>+1 256-426-5503</strong> or <strong>owenemerson4@gmail.com</strong>.
+        Thanks for stopping by. It's nine-o-clock somewhere. Click the house icon for Sweet Dreams.
+      </p>
+    </div>
   </div>
 
 <script>
