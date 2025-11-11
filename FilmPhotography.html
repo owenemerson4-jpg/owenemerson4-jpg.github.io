@@ -245,6 +245,7 @@ async function loadImages(){
     const res=await fetch(MANIFEST_URL);
     const list=await res.json();
     const full=list.map(name=>IMAGE_BASE_PATH+name);
+    console.log("Photo list loaded:", full);
     await buildColorSortedGallery(full);
   }catch(err){
     console.error("Failed to load photolist.json:",err);
