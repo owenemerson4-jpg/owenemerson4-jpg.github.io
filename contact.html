@@ -65,36 +65,47 @@
   }
   .house-image:active { transform:scale(0.96); }
 
-  /* Contact photo row */
+/* Contact photo row (scaled-down version) */
+.contact-photo-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 22%;              /* smaller footprint on folder front */
+  margin-top: 3%;           /* subtle breathing room below the paper */
+  margin-bottom: auto;
+}
+
+.contact-photo-row img {
+  flex: 0 0 auto;        /* prevent flex resizing weirdness */
+  max-height: 100%;      /* all images share the same height proportion */
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+  vertical-align: middle; /* helps with inline alignment fallback */
+}
+
+
+/* individual relative sizing */
+.contact-photo-row img.photo1 { max-width: 13%; } /* slightly smaller portrait */
+.contact-photo-row img.photo2 { max-width: 17%; } /* medium live shot */
+.contact-photo-row img.photo3 { max-width: 15%; } /* balanced central image */
+.contact-photo-row img.photo4 { max-width: 18%; } /* slightly larger for asymmetry */
+
+/* mobile handling */
+@media (max-width: 768px) {
   .contact-photo-row {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8px;
-    width: 100%;
-    height: 30%;
-    margin-top: 2%;
-    margin-bottom: auto;
-  }
-
-  .contact-photo-row img {
-    flex: 1 1 auto;
-    max-width: 22%;
+    flex-wrap: wrap;
     height: auto;
-    object-fit: cover;
-    border-radius: 0;
+    margin-top: 4%;
   }
+  .contact-photo-row img {
+    max-width: 40%;
+    margin-bottom: 8px;
+  }
+}
 
-  @media (max-width: 768px) {
-    .contact-photo-row {
-      flex-wrap: wrap;
-      height: auto;
-    }
-    .contact-photo-row img {
-      max-width: 45%;
-      margin-bottom: 8px;
-    }
-  }
 
   /* Responsive */
   @media (max-width:900px){
@@ -142,12 +153,13 @@
 
   <!-- Folder front content -->
   <div class="folder-front">
-    <div class="contact-photo-row">
-      <img src="my_assets/headshot.jpeg" alt="Headshot">
-      <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2">
-      <img src="my_assets/ManFront.png" alt="Man Front">
-      <img src="my_assets/mirror.jpg" alt="Mirror">
-    </div>
+<div class="contact-photo-row">
+  <img src="my_assets/headshot.jpeg" alt="Headshot" class="photo1">
+  <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2" class="photo2">
+  <img src="my_assets/ManFront.png" alt="Man Front" class="photo3">
+  <img src="my_assets/mirror.jpg" alt="Mirror" class="photo4">
+</div>
+
   </div>
 
 <script>
