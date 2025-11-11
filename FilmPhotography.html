@@ -26,20 +26,21 @@
   }
 
   /* Back arrow */
-  .back-btn{
-    position:fixed; top:16px; left:16px;
-    width:var(--back-size); height:var(--back-size);
-    display:grid; place-items:center;
-    text-decoration:none;
-    background:#000;
-    color:#fff;
-    border-radius:8px;
-    z-index:10001;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
-    transition:transform .12s ease, opacity .18s ease;
-  }
-  .back-btn:hover{ transform:translateX(-2px); opacity:.9; }
-  .back-btn svg{ width:22px; height:22px; }
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 1.8rem;
+  color: #222;
+  text-decoration: none;
+  z-index: 10001;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.back-btn:hover {
+  transform: translateX(-3px);
+  opacity: 0.7;
+}
+
 
   /* Masonry grid */
   .gallery{
@@ -53,7 +54,7 @@
     display:block;
     break-inside: avoid;
     margin: 0 0 var(--gap) 0;
-    border-radius: 10px;
+    border-radius: 0;
     overflow:hidden;
     background:#f6f6f6;
     box-shadow: 0 1px 2px rgba(0,0,0,.06);
@@ -115,11 +116,7 @@
 
 <body>
 <!-- Back button -->
-<a class="back-btn" href="work.html" aria-label="Back to Work">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M15 18l-6-6 6-6"/>
-  </svg>
+<a class="back-btn" href="work.html" aria-label="Back to Work">←
 </a>
 
 <!-- Gallery -->
@@ -138,8 +135,11 @@
 
 <script>
 // ===== CONFIG =====
-const IMAGE_BASE_PATH = "websitephotos/";
-const MANIFEST_URL = "photolist.json";
+// Corrected for GitHub Pages under /owendenveremerson/
+const REPO_BASE = "/owendenveremerson/";
+const IMAGE_BASE_PATH = REPO_BASE + "websitephotos/";
+const MANIFEST_URL = REPO_BASE + "photolist.json";
+
 const BATCH_SIZE = 60;
 
 // ===== Lightbox logic =====
@@ -199,14 +199,27 @@ function makeTile(src){
 
 async function buildColorSortedGallery(srcList){
   if(!srcList.length)return;
-  const items=await Promise.all(srcList.map(src=>new Promise(resolve=>{
-    const {el,img}=makeTile(src);
-    img.addEventListener("load",()=>{
-      const {h,s,l}=averageHSL(img);
-      resolve({el,img,src,h,s,l});
-    },{once:true});
-    img.addEventListener("error",()=>resolve({el,img,src,h:0,s:0,l:.5}),{once:true});
-  })));
+const items = await Promise.all(srcList.map(src => new Promise(resolve => {
+  const { el, img } = makeTile(src);
+  let settled = false;
+
+  const finalize = (h,s,l) => {
+    if (settled) return;
+    settled = true;
+    resolve({ el, img, src, h, s, l });
+  };
+
+  img.addEventListener("load", () => {
+    const { h, s, l } = averageHSL(img);
+    finalize(h, s, l);
+  }, { once: true });
+
+  img.addEventListener("error", () => finalize(0, 0, 0.5), { once: true });
+
+  // fallback: resolve anyway after 3s
+  setTimeout(() => finalize(0, 0, 0.5), 3000);
+})));
+
   items.sort((a,b)=>a.h===b.h ? a.l-b.l : a.h-b.h);
   canonical=items.map(x=>x.el);
   renderInitial(canonical);
@@ -242,6 +255,7 @@ async function loadImages(){
     const res=await fetch(MANIFEST_URL);
     const list=await res.json();
     const full=list.map(name=>IMAGE_BASE_PATH+name);
+    console.log("Photo list loaded:", full);
     await buildColorSortedGallery(full);
   }catch(err){
     console.error("Failed to load photolist.json:",err);
