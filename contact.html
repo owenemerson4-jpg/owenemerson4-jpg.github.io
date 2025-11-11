@@ -65,7 +65,7 @@
   }
   .house-image:active { transform:scale(0.96); }
 
-  /* Contact photo row */
+  /* Contact photo row (scaled-down version) */
   .contact-photo-row {
     display: flex;
     justify-content: center;
@@ -74,7 +74,7 @@
     width: 100%;
     height: 40%;
     margin-top: 1%;
-    margin-bottom: 2%;
+    margin-bottom: auto;
   }
 
   .contact-photo-row img {
@@ -92,126 +92,54 @@
   .contact-photo-row img.photo3 { max-width: 15%; }
   .contact-photo-row img.photo4 { max-width: 18%; }
 
-  /* Contact icon row */
-  .contact-icon-row {
+  /* Trio of icons */
+  .contact-links {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-bottom: 2%;
-    margin-top: 0.5%;
+    gap: 24px;
+    margin: 16px 0;
   }
-
-  .contact-icon-row a {
-    color: #1f4d2b; /* same green as Work tab */
-    text-decoration: none;
+  .contact-links a {
+    color: #1f4d2b;
+    font-size: 1.3rem;
     font-weight: 600;
-    font-size: 1.4rem;
-    transition: color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-decoration: none;
+    transition: color 0.3s ease;
   }
-
-  .contact-icon-row a:hover {
-    color: #5a3131; /* red like Contact tab */
-    transform: translateY(-2px);
+  .contact-links a:hover {
+    color: #b14c4c;
   }
-
-  .contact-icon-row img {
-    height: 32px;
+  .contact-links img {
+    height: 28px;
     width: auto;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(400%) hue-rotate(80deg) brightness(90%) contrast(90%);
-    transition: filter 0.3s ease, transform 0.2s ease;
+    vertical-align: middle;
+    filter: brightness(0) saturate(100%) invert(24%) sepia(66%) saturate(312%) hue-rotate(82deg) brightness(92%) contrast(93%);
+    transition: filter 0.3s ease;
+  }
+  .contact-links a:hover img {
+    filter: brightness(0) saturate(100%) invert(24%) sepia(66%) saturate(312%) hue-rotate(340deg) brightness(92%) contrast(93%);
   }
 
-  .contact-icon-row a:hover img {
-    filter: brightness(0) saturate(100%) invert(18%) sepia(20%) saturate(400%) hue-rotate(320deg) brightness(80%) contrast(85%);
-    transform: translateY(-2px);
-  }
-
-  /* Dark mode adjustment for icons */
-  body.dark-mode .contact-icon-row a {
-    color: #d5e6d0;
-  }
-
-  body.dark-mode .contact-icon-row img {
-    filter: invert(80%) brightness(90%);
-  }
-
-  /* Contact red text box */
+  /* Red text box */
   .contact-text-box {
-    background: #f7cfcf;
+    background-color: #f7cfcf;
     border: 2px solid #5a3131;
     color: #5a3131;
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    font-weight: 500;
-    max-width: 70%;
-    margin-top: 3%;
-    padding: 1.5rem 2rem;
+    padding: 16px 20px;
+    max-width: 600px;
     text-align: center;
-    border-radius: 0;
-    z-index: 6;
+    font-weight: 500;
     line-height: 1.5;
-    letter-spacing: 0.02em;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.05);
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    margin-top: 20px;
   }
 
-  .contact-text-box p {
-    font-size: 1.1rem;
-    margin: 0;
-  }
-
+  /* Dark mode adjustments */
   body.dark-mode .contact-text-box {
-    background: #1c1c1c;
-    border: 1px solid #555;
+    background-color: #1f1f1f;
+    border-color: #ddd;
     color: #f5f5f5;
   }
-
-@media (max-width: 768px) {
-  /* Bigger photos on mobile: 2-up, large tiles */
-  .contact-photo-row {
-    flex-wrap: wrap;
-    height: 72px;            /* let content define height */
-    margin-top: 2%;
-    margin-bottom: 2%;       /* a little breathing room before the icons */
-    gap: 12px;               /* slightly larger gap for big tiles */
-  }
-  .contact-photo-row img {
-    /* Force large size: 2 across with gap */
-    flex: 0 0 47%;
-    width: 51%;
-    max-width: none;         /* ignore desktop max-width */
-    max-height: none;        /* remove height limiter that keeps them small */
-    margin-bottom: 2px;
-  }
-
-  /* Icon row: push down a bit, tighten spacing to the text box */
-  .contact-icon-row {
-    gap: 24px;
-    margin-top: 4%;          /* pushes the trio LOWER on the page */
-    margin-bottom: 2%;       /* tighter gap before the red box */
-  }
-  .contact-icon-row img {
-    height: 24px;            /* a touch smaller is nicer under big photos */
-  }
-  .contact-icon-row a {
-    font-size: 1.2rem;
-  }
-
-  /* Text box: near bottom but not touching */
-  .contact-text-box {
-    max-width: 92%;
-    padding: 1rem;
-    font-size: 1rem;
-    margin-top: auto;        /* stay low in the folder front */
-    margin-bottom: 3%;       /* keep off the bottom edge */
-  }
-}
-
-
 
   /* Responsive */
   @media (max-width:900px){
@@ -219,6 +147,19 @@
   }
   @media (max-width:768px){
     .house-image { right:4%; height:10vh; bottom: calc(100% - var(--folder-back-top, 12.6vh)); }
+    .contact-photo-row {
+      flex-wrap: wrap;
+      height: auto;
+      margin-top: 1%;
+    }
+    .contact-photo-row img {
+      max-width: 40%;
+      margin-bottom: 8px;
+    }
+    .contact-links {
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
   }
 
   /* Dark mode palette */
@@ -236,6 +177,20 @@
   body.dark-mode .tab.green  { background:#1c1c1c; color:#ddd; border-color:#444; }
   body.dark-mode .tab.pink   { background:#202020; color:#ccc; }
   body.dark-mode .tab { text-decoration: underline; }
+
+  /* --- PORTRAIT LOCK MESSAGE (from index.html) --- */
+  @media screen and (max-width:900px) and (orientation:landscape){
+    body::before{
+      content:"FLIP THAT PHONE BACK AROUND, COWBOY! I disabled landscape view on this section because it was too glitchy. I am a bad programmer. Sorry.";
+      position:fixed; top:0; left:0; width:100vw; height:100vh;
+      background:linear-gradient(to bottom,#bfe5ff 0%,#eaf7ff 80%);
+      color:#1e1e1e; font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+      letter-spacing:0.03em; display:flex; align-items:center; justify-content:center;
+      text-align:center; font-size:1.15rem; text-shadow:0 1px 3px rgba(255,255,255,0.6);
+      z-index:9999;
+      padding:20px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -266,23 +221,16 @@
       <img src="my_assets/mirror.jpg" alt="Mirror" class="photo4">
     </div>
 
-    <!-- Icon row -->
-    <div class="contact-icon-row">
-      <a href="https://www.linkedin.com" target="_blank">
-        <img src="my_assets/linkedin2.svg" alt="LinkedIn">
-      </a>
-      <a href="Resume.html">Resume</a>
-      <a href="https://www.instagram.com" target="_blank">
-        <img src="my_assets/instagram.png" alt="Instagram">
-      </a>
+    <div class="contact-links">
+      <a href="#" target="_blank" title="LinkedIn"><img src="my_assets/linkedin-icon.png" alt="LinkedIn"></a>
+      <a href="Resume.html" title="Resume">Resume</a>
+      <a href="#" target="_blank" title="Instagram"><img src="my_assets/instagram-icon.png" alt="Instagram"></a>
     </div>
 
     <div class="contact-text-box">
-      <p>
-        Hi y'all! My name is Owen. I am a composer, writer, designer, and multimedia artist telling Gen Z bedtime stories.
-        You can reach me at <strong>+1 256-426-5503</strong> or <strong>owenemerson4@gmail.com</strong>.
-        Thanks for stopping by. It's nine-o-clock somewhere. Click the house icon for Sweet Dreams.
-      </p>
+      Hi y'all! My name is Owen. I am a composer, writer, designer, and multimedia artist telling Gen Z bedtime stories. 
+      You can reach me at +1 256-426-5503 or owenemerson4@gmail.com. Thanks for stopping by. It's nine-o-clock somewhere. 
+      Click the house icon for Sweet Dreams.
     </div>
   </div>
 
