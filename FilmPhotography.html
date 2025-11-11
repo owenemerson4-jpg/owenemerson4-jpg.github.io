@@ -202,14 +202,27 @@ function makeTile(src){
 
 async function buildColorSortedGallery(srcList){
   if(!srcList.length)return;
-  const items=await Promise.all(srcList.map(src=>new Promise(resolve=>{
-    const {el,img}=makeTile(src);
-    img.addEventListener("load",()=>{
-      const {h,s,l}=averageHSL(img);
-      resolve({el,img,src,h,s,l});
-    },{once:true});
-    img.addEventListener("error",()=>resolve({el,img,src,h:0,s:0,l:.5}),{once:true});
-  })));
+const items = await Promise.all(srcList.map(src => new Promise(resolve => {
+  const { el, img } = makeTile(src);
+  let settled = false;
+
+  const finalize = (h,s,l) => {
+    if (settled) return;
+    settled = true;
+    resolve({ el, img, src, h, s, l });
+  };
+
+  img.addEventListener("load", () => {
+    const { h, s, l } = averageHSL(img);
+    finalize(h, s, l);
+  }, { once: true });
+
+  img.addEventListener("error", () => finalize(0, 0, 0.5), { once: true });
+
+  // fallback: resolve anyway after 3s
+  setTimeout(() => finalize(0, 0, 0.5), 3000);
+})));
+
   items.sort((a,b)=>a.h===b.h ? a.l-b.l : a.h-b.h);
   canonical=items.map(x=>x.el);
   renderInitial(canonical);
