@@ -171,41 +171,46 @@
   }
 
 @media (max-width: 768px) {
-  /* Make the photo row bigger and centered */
+  /* Bigger photos on mobile: 2-up, large tiles */
   .contact-photo-row {
     flex-wrap: wrap;
-    height: auto;
+    height: auto;            /* let content define height */
     margin-top: 2%;
-    margin-bottom: 6%;
-    gap: 10px;
+    margin-bottom: 6%;       /* a little breathing room before the icons */
+    gap: 12px;               /* slightly larger gap for big tiles */
   }
   .contact-photo-row img {
-    max-width: 46%;       /* Larger per image */
-    margin-bottom: 12px;  /* More breathing room between rows */
+    /* Force large size: 2 across with gap */
+    flex: 0 0 47%;
+    width: 47%;
+    max-width: none;         /* ignore desktop max-width */
+    max-height: none;        /* remove height limiter that keeps them small */
+    margin-bottom: 12px;
   }
 
-  /* Space the icon row and text box lower on the page */
+  /* Icon row: push down a bit, tighten spacing to the text box */
   .contact-icon-row {
-    gap: 28px;
-    margin-top: 6%;
-    margin-bottom: 5%;
+    gap: 24px;
+    margin-top: 8%;          /* pushes the trio LOWER on the page */
+    margin-bottom: 2%;       /* tighter gap before the red box */
   }
   .contact-icon-row img {
-    height: 26px;
+    height: 24px;            /* a touch smaller is nicer under big photos */
   }
   .contact-icon-row a {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
-  /* Let the text box sit lower without touching bottom edge */
+  /* Text box: near bottom but not touching */
   .contact-text-box {
     max-width: 92%;
     padding: 1rem;
     font-size: 1rem;
-    margin-top: auto;
-    margin-bottom: 3%;
+    margin-top: auto;        /* stay low in the folder front */
+    margin-bottom: 3%;       /* keep off the bottom edge */
   }
 }
+
 
 
   /* Responsive */
