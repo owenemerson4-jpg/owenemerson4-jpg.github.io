@@ -65,47 +65,72 @@
   }
   .house-image:active { transform:scale(0.96); }
 
-/* Contact photo row (scaled-down version) */
-.contact-photo-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  height: 40%;              /* smaller footprint on folder front */
-  margin-top: 1%;           /* subtle breathing room below the paper */
-  margin-bottom: auto;
-}
-
-.contact-photo-row img {
-  flex: 0 0 auto; 
-  max-height: 100%;      /* all images share the same height proportion */
-  height: auto;
-  object-fit: contain;
-  border-radius: 0;
-  vertical-align: middle; /* helps with inline alignment fallback */
-}
-
-
-/* individual relative sizing */
-.contact-photo-row img.photo1 { max-width: 13%; } /* slightly smaller portrait */
-.contact-photo-row img.photo2 { max-width: 17%; } /* medium live shot */
-.contact-photo-row img.photo3 { max-width: 15%; } /* balanced central image */
-.contact-photo-row img.photo4 { max-width: 18%; } /* slightly larger for asymmetry */
-
-/* mobile handling */
-@media (max-width: 768px) {
+  /* Contact photo row (scaled-down version) */
   .contact-photo-row {
-    flex-wrap: wrap;
-    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 40%;
     margin-top: 1%;
+    margin-bottom: auto;
   }
-  .contact-photo-row img {
-    max-width: 40%;
-    margin-bottom: 8px;
-  }
-}
 
+  .contact-photo-row img {
+    flex: 0 0 auto; 
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    vertical-align: middle;
+  }
+
+  /* individual relative sizing */
+  .contact-photo-row img.photo1 { max-width: 13%; }
+  .contact-photo-row img.photo2 { max-width: 17%; }
+  .contact-photo-row img.photo3 { max-width: 15%; }
+  .contact-photo-row img.photo4 { max-width: 18%; }
+
+  /* Contact red text box (matches "Contact" tab style) */
+  .contact-text-box {
+    background: #f7cfcf;             /* same light red fill */
+    border: 2px solid #5a3131;       /* same dark red stroke */
+    color: #5a3131;                  /* same text color */
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-weight: 500;
+    max-width: 70%;
+    margin-top: 3%;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-radius: 0;
+    z-index: 6;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+  }
+
+  .contact-text-box p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-photo-row {
+      flex-wrap: wrap;
+      height: auto;
+      margin-top: 1%;
+    }
+    .contact-photo-row img {
+      max-width: 40%;
+      margin-bottom: 8px;
+    }
+    .contact-text-box {
+      max-width: 90%;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+  }
 
   /* Responsive */
   @media (max-width:900px){
@@ -153,13 +178,20 @@
 
   <!-- Folder front content -->
   <div class="folder-front">
-<div class="contact-photo-row">
-  <img src="my_assets/headshot.jpeg" alt="Headshot" class="photo1">
-  <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2" class="photo2">
-  <img src="my_assets/ManFront.png" alt="Man Front" class="photo3">
-  <img src="my_assets/mirror.jpg" alt="Mirror" class="photo4">
-</div>
+    <div class="contact-photo-row">
+      <img src="my_assets/headshot.jpeg" alt="Headshot" class="photo1">
+      <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2" class="photo2">
+      <img src="my_assets/ManFront.png" alt="Man Front" class="photo3">
+      <img src="my_assets/mirror.jpg" alt="Mirror" class="photo4">
+    </div>
 
+    <div class="contact-text-box">
+      <p>
+        Hi y'all! My name is Owen. I am a composer, writer, designer, and multimedia artist telling Gen Z bedtime stories.
+        You can reach me at <strong>+1 256-426-5503</strong> or <strong>owenemerson4@gmail.com</strong>.
+        Thanks for stopping by. It's nine-o-clock somewhere. Click the house icon for Sweet Dreams.
+      </p>
+    </div>
   </div>
 
 <script>
