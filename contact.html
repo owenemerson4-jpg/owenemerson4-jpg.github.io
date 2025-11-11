@@ -36,7 +36,7 @@
   .folder-front {
     position:absolute; bottom:0; left:0; width:100%; top:20%;
     background:linear-gradient(to bottom,#f5e0a1 0%,#f2d58b 100%);
-    z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     padding:4%;
   }
 
@@ -64,6 +64,37 @@
     pointer-events:auto;
   }
   .house-image:active { transform:scale(0.96); }
+
+  /* Contact photo row */
+  .contact-photo-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    height: 30%;
+    margin-top: 2%;
+    margin-bottom: auto;
+  }
+
+  .contact-photo-row img {
+    flex: 1 1 auto;
+    max-width: 22%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-photo-row {
+      flex-wrap: wrap;
+      height: auto;
+    }
+    .contact-photo-row img {
+      max-width: 45%;
+      margin-bottom: 8px;
+    }
+  }
 
   /* Responsive */
   @media (max-width:900px){
@@ -109,9 +140,14 @@
   <audio id="clickSfx" src="my_assets/click.mp3" preload="auto"></audio>
   <audio id="pageTurnSfx" src="my_assets/pageturn.mp3" preload="auto"></audio>
 
-  <!-- Folder front (empty for new content) -->
+  <!-- Folder front content -->
   <div class="folder-front">
-    <!-- Placeholder: content will go here later -->
+    <div class="contact-photo-row">
+      <img src="my_assets/headshot.jpeg" alt="Headshot">
+      <img src="my_assets/False Jolene Live2.jpg" alt="False Jolene Live 2">
+      <img src="my_assets/ManFront.png" alt="Man Front">
+      <img src="my_assets/mirror.jpg" alt="Mirror">
+    </div>
   </div>
 
 <script>
