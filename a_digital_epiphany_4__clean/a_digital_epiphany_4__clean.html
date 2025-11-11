@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Digital Epiphany (4)</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>@import url(https://themes.googleusercontent.com/fonts/css?kit=no52RkK722U1hXp-2MvsnYMDgCxhHbUJ6X5wl1byzZyHpuVWaP-GHFPZzt35558q);ol{margin:0;padding:0}table td,table th{padding:0}.c5{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:20pt;font-family:"IBM Plex Sans";font-style:normal}.c6{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:15pt;font-family:"IBM Plex Sans";font-style:normal}.c2{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:14pt;font-family:"IBM Plex Sans";font-style:normal}.c1{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c8{-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline;text-decoration-skip-ink:none}.c0{text-decoration-skip-ink:none;-webkit-text-decoration-skip:none;color:#0000ee;text-decoration:underline}.c4{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c7{font-size:14pt;font-weight:400;font-family:"IBM Plex Sans"}.c10{color:inherit;text-decoration:inherit}.c3{height:11pt}.c9{font-style:italic}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+  <style>
+    html {
+      line-height: normal;
+      letter-spacing: normal;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      max-width: 800px;
+      margin: 60px auto;
+      font-size: 19px;
+      color: #222;
+      background: #fff;
+      padding-inline: clamp(12px, 5vw, 24px);
+      position: relative;
+      overflow-x: hidden;
+      word-break: break-word;
+    }
+    p { line-height: normal; margin-top: revert; margin-bottom: revert; }
+    p + p { text-indent: 0; }
+    ul, ol { margin-top: revert; margin-bottom: revert; padding-left: 2.5em; line-height: 1.35; }
+    li { margin-top: 0.3em; margin-bottom: 0.3em; line-height: 1.35; }
+    h1, h2, h3, h4, h5, h6 { margin-top: 2em; margin-bottom: 1em; font-weight: 600; }
+    span[style*='font-style:italic'], em { font-style: italic !important; }
+    span[style*='font-weight:700'], strong { font-weight: 700 !important; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img {
+      display: block;
+      margin: 1.5em auto;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: none;
+    }
+
+    iframe, video, audio {
+      display: block;
+      margin: 1.8em auto;
+      max-width: 100%;
+      height: auto;
+    }
+
+    iframe[src*='youtube.com'] { aspect-ratio: 16 / 9; width: 100%; height: auto; }
+
+    .back-button { position: fixed; top: 20px; left: 20px; font-size: 1.8rem; color: #222; text-decoration: none; z-index: 100; transition: transform 0.15s ease, opacity 0.2s ease; }
+    .back-button:hover { transform: translateX(-3px); opacity: 0.7; }
+
+    .drive-audio-wrapper { background: #fff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden; display: flex; justify-content: center; align-items: center; margin: 1.5em 0; max-width: 100%; }
+    .drive-audio-wrapper iframe { width: 100%; height: 80px; border: 0; }
+
+    @media (max-width: 768px) {
+      #doc-content img {
+          display: block;
+          margin: 1.2em 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+      }
+
+      /* if Docs injected pixel widths/margins on wrappers, ignore them on mobile */
+      #doc-content [style*="width:"],
+      #doc-content [style*="max-width:"],
+      #doc-content [style*="margin-left:"],
+      #doc-content [style*="padding-left:"] {
+          width: auto !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          padding-left: 0 !important;
+      }
+
+      /* paragraph that effectively only houses an image */
+      #doc-content p > img:first-child:last-child,
+      #doc-content p > span:only-child > img:only-child,
+      #doc-content p > a:only-child > img:only-child {
+          text-indent: 0 !important;
+          margin: 0.5em 0 !important;
+          padding: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+      }
+    }
+
+    /* --- white build-in transition --- */
+    #white-transition {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      grid-auto-rows: 60px;
+      z-index: 9999;
+    }
+    .white-block {
+      background: #fff;
+      opacity: 0;
+      transition: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="white-transition"></div>
+  <a href="/owendenveremerson/work.html" class="back-button" title="Back">←</a>
+  <main id="doc-content"><p class="c1"><span class="c5">A Digital Epiphany:</span></p><p class="c1"><span class="c6">Literature Adaptation in the Age of Interactive New Media</span></p><p class="c1 c3"><span class="c6"></span></p><p class="c1"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 336.67px; height: 188.17px;"><img alt="" src="images/image1.gif" style="width: 336.67px; height: 188.17px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 337.50px; height: 189.12px;"><img alt="" src="images/image4.gif" style="width: 337.50px; height: 189.12px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 336.50px; height: 188.04px;"><img alt="" src="images/image5.gif" style="width: 336.50px; height: 188.04px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 338.01px; height: 189.57px;"><img alt="" src="images/image2.gif" style="width: 338.01px; height: 189.57px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p><p class="c1 c3"><span class="c6"></span></p><p class="c1"><span class="c7 c9">A Digital Epiphany </span><span class="c2">is an installation created for my master’s thesis in Music and Media Technologies at Trinity College, Dublin. It investigates the role interactive digital technologies play in adapting classic stories to new mediums. The media formats of the twenty-first century are more complex than their predecessors: as amalgamations of multiple content formats they are increasingly multisensory, and they challenge traditional roles of the viewer, the creator, and the performance space in the art-making experience. The invention of the internet, the development of wireless serial communication, and the malleability of digital code have greatly expanded the possibilities for interactivity and aesthetic representation in media.</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c7">To put it in simpler terms: The way we create and consume content is different than it used to be in the 20th century. And this affects the way artists make art for their audiences. </span><span class="c7 c9">A Digital Epiphany </span><span class="c2">asks “How does the artistic process change when interactive New Media technologies are involved? How should artists engage with these technologies properly?”</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c2">To evaluate this question, I used the lens of literary adaptation. I took stories written by the venerated Irish novelist James Joyce, and evaluated existing adaptations of these stories to traditional media (i.e. film) and New Media (i.e. interactive web sites). I interviewed artists working in Joycean adaptation, and asked them to reflect on what (if anything) made the process of adapting Joyce to interactive New Media “different”.</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c2">Finally, to test my findings from the academic literature and interviews, I engaged in hands-on work in New Media adaptation: I built a device called the Generative Guitar Animation Rig (GGAR) that allows the pitch and volume of a guitar’s strings to control the visuals and pacing of an interactive animation displayed on a screen. I then composed a series of songs and animated visuals (based on the stories of James Joyce) for this interactive rig, and performed with the installation at Trinity College’s 2025 “Signal Boost” exhibition.</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c2">To read more about this research project and see my results and findings, click the link below!</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c0"><a class="c10" href="https://www.google.com/url?q=https://drive.google.com/file/d/14NNRvNeGaXolaTNXrvTFI6_02P2w9KKL/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1762891360404182&amp;usg=AOvVaw1kFJPcRJ9bSrdPQNpdMNbn">Owen_Emerson_MMTMaster'sThesisFINAL (1).pdf</a></span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c2">And to see the Generative Guitar Animation Rig in action, check out this video.</span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span class="c7 c8"><iframe allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/HlDWgyFArH4" style="aspect-ratio:16/9;width:100%;max-width:720px;display:block;margin:1.5em auto;"></iframe></span></p><p class="c1 c3"><span class="c2"></span></p><p class="c1"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 330.50px; height: 185.00px;"><img alt="" src="images/image3.gif" style="width: 330.50px; height: 185.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 331.50px; height: 185.28px;"><img alt="" src="images/image6.gif" style="width: 331.50px; height: 185.28px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""/></span></p></main>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("white-transition");
+  const cols = Math.ceil(window.innerWidth / 60);
+  const rows = Math.ceil(window.innerHeight / 60);
+  const total = cols * rows;
+
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement("div");
+    b.className = "white-block";
+    container.appendChild(b);
+  }
+
+  const blocks = Array.from(container.children);
+  blocks.sort(() => Math.random() - 0.5);
+
+  let index = 0;
+  const step = 25;
+  const interval = setInterval(() => {
+    for (let i = 0; i < step && index < blocks.length; i++, index++) {
+      blocks[index].style.opacity = 1;
+    }
+    if (index >= blocks.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        container.style.transition = "opacity 0.3s ease-out";
+        container.style.opacity = 0;
+        setTimeout(() => container.remove(), 400);
+      }, 150);
+    }
+  }, 25);
+});
+
+window.addEventListener('orientationchange', () => {
+  document.querySelectorAll('img, iframe, video').forEach(el => {
+    el.style.width = '100%';
+    el.style.maxWidth = '100%';
+    el.style.height = 'auto';
+  });
+  document.body.offsetHeight; // Force reflow
+});
+</script>
+</body>
+</html>
